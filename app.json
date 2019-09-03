@@ -1,5 +1,8 @@
 {
   "pages":[
+    "pages/my/my",
+    "pages/mymsg/mymsg",
+    "pages/orderList/orderList",
     "pages/details/details",
     "pages/index/index",
     "pages/logs/logs"
@@ -7,7 +10,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "上门维修",
     "navigationBarTextStyle":"black"
   },
 	"tabBar": {
@@ -21,13 +24,13 @@
 	      "selectedIconPath": "/static/images/btn_03.png"
 	    },
 	    {
-	      "pagePath": "pages/index/index",
+	      "pagePath": "pages/orderList/orderList",
 	      "text": "订单",
 	      "iconPath": "/static/images/btn_05.png",
 	      "selectedIconPath": "/static/images/btn1_05.png"
 	    },
 	    {
-	      "pagePath": "pages/index/index",
+	      "pagePath": "pages/my/my",
 	      "text": "我的",
 	      "iconPath": "/static/images/btn_07.png",
 	      "selectedIconPath": "/static/images/btn1_07.png"

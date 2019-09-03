@@ -1,0 +1,30 @@
+<!--pages/my/my.wxml-->
+
+<view class="container">
+	<view class="header">
+		<image class="mybg" src="../../static/images/my_02.jpg"></image>
+		<text class="iconfont iconshezhi" data-url="/pages/mymsg/mymsg" bindtap="jump"></text>
+		<view class="user_msg">
+			<image class="user_tx" src="../../static/images/tx.png"></image>
+			<text class="user_name">昵称</text>
+		</view>
+		<view class="user_zc">
+			<view class="zc_name">总资产(元)</view>
+			<view class="zc_val">1000.00</view>
+		</view>
+	</view>
+	<view class="my_list" data-url="/pages/orderList/orderList" bindtap="jump">
+		<view class="list_name">
+			<image class="list_icon" src="../../static/images/my_05.png"></image>
+			身份认证
+		</view>
+		<text class="iconfont iconnext"></text>
+	</view>
+	<view class="my_list" data-url="/pages/myaddress/myaddress" bindtap="jump">
+		<view class="list_name">
+			<image class="list_icon" src="../../static/images/my_08.png"></image>
+			我的资金
+		</view>
+		<text class="iconfont iconnext"></text>
+	</view>
+</view>

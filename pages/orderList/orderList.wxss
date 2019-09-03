@@ -1,0 +1,82 @@
+.container{
+	min-height: 100vh;
+	background: #eeeeee;
+	border-top: 1px solid #eee;
+	/* padding-top: 17rpx; */
+}
+.typecur{
+  padding-bottom: 12rpx;
+  border-bottom: 3rpx solid #3ea5ff;
+	color: #3ea5ff;
+}
+.orderOne{
+	margin-top: 18rpx;
+	width: 100%;
+	height: 160rpx;
+	padding: 38rpx 24rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.zanwu {
+	text-align: center;
+	font-size:24rpx;
+	color:#999;
+	line-height:140rpx;
+
+}
+.ceb2a2a{
+	color: #eb2a2a;
+}
+.c13c700{
+	color: #13c700;
+}
+.rw_one{
+	width: 100%;
+	height: 256rpx;
+	padding: 20rpx 14rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: flex;
+	background-color: #fff;
+	box-shadow: 0px 1rpx 6rpx 0px 
+		rgba(0, 0, 0, 0.08);
+	border-radius: 6rpx;
+	margin-bottom: 20rpx;
+}
+.rw_tx{
+	width: 90rpx;
+	height: 90rpx;
+	border-radius: 50%;
+	margin-right: 20rpx;
+}
+.rw_msg{
+	flex: 1;
+}
+.address{
+	font-size: 24rpx;
+	color: #999;
+	display: flex;
+	align-items: center;
+}
+.address .iconfont{
+	font-size: 32rpx;
+	color: #1d89ee;
+	margin-right: 15rpx;
+}
+.jd_btn{
+	width: 112rpx;
+	height: 48rpx;
+	background-color: #3ea5ff;
+	border-radius: 10rpx;
+	font-size: 24rpx;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

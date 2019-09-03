@@ -1,4 +1,4 @@
-// pages/index/index.js
+// pages/my/my.js
 const app=getApp()
 Page({
 
@@ -6,23 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-		rw_data:[
-			{
-				name:'昵称',
-				time:'2分钟前',
-				address:'科技大学'
-			},
-			{
-				name:'昵称',
-				time:'2分钟前',
-				address:'科技大学'
-			},
-			{
-				name:'昵称',
-				time:'2分钟前',
-				address:'科技大学'
-			},
-		]
+
   },
 
   /**
@@ -82,8 +66,5 @@ Page({
   },
 	jump(e){
 		app.jump(e)
-	},
-	order(e){
-		console.log(e.currentTarget.dataset.id)
 	}
 })
