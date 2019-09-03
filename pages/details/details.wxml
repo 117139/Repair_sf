@@ -1,0 +1,6 @@
+<!--pages/details/details.wxml-->
+<view class="container">
+	<view class="o_header">
+		<image class="user_tx" src="../../static/images/tx.png"></image>
+	</view>
+</view>

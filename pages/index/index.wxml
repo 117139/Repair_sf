@@ -1,0 +1,31 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+	<image class="banner" src="../../static/images/banner_02.jpg"></image>
+	<view class="main">
+		<view class="sy_tit">任务推荐</view>
+		<view class="rw_one"
+			wx:for="{{rw_data}}" 
+			wx:for-index="idx" 
+			wx:for-item="item" 
+			wx:key="idx"
+			data-url=""
+			bindtap="">
+			<image class="rw_tx" src="../../static/images/tx.png"></image>
+			<view class="rw_msg">
+				<view class="dis_flex ju_b aic mb10">
+					<view class="fz32 c3">{{item.name}}</view>
+					<view class="fz24 c9">{{item.time}}</view>
+				</view>
+				<view class="fz26 c6 mb10">家电维修</view>
+				<view class="fz26 c9 oh2" style="width: 422rpx;">食堂饮水机扫码成功了，但是不出水，手机上显示正在喝水食堂饮水机扫码成功了，但是不出水，手机上显示正在喝水</view>
+				<view class="dis_flex ju_b">
+					<view class="address">
+						<text class="iconfont icontubiaozhizuomoban_fuzhi"></text>
+						<text>{{item.address}}</text>
+					</view>
+					<view class="jd_btn" data-id="{{item.id}}" bindtap="order">接单</view>
+				</view>
+			</view>
+		</view>
+	</view>
+</view>

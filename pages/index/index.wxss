@@ -1,0 +1,70 @@
+/* pages/index/index.wxss */
+.container{
+	width: 100%;
+	min-height: 100vh;
+}
+.banner{
+	width: 100%;
+	height: 233rpx;
+}
+.main{
+	width: 100%;
+	padding: 0 24rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.sy_tit{
+	font-size: 32rpx;
+	font-weight: bold;
+	color: #333;
+	padding-left: 15rpx;
+	border-left: 8rpx solid #3ea5ff;
+	margin-top: 39rpx;
+	margin-bottom: 28px;
+}
+.rw_one{
+	width: 100%;
+	height: 256rpx;
+	padding: 20rpx 14rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: flex;
+	background-color: #fff;
+	box-shadow: 0px 1rpx 6rpx 0px 
+		rgba(0, 0, 0, 0.08);
+	border-radius: 6rpx;
+	margin-bottom: 24rpx;
+}
+.rw_tx{
+	width: 90rpx;
+	height: 90rpx;
+	border-radius: 50%;
+	margin-right: 20rpx;
+}
+.rw_msg{
+	flex: 1;
+}
+.address{
+	font-size: 24rpx;
+	color: #999;
+	display: flex;
+	align-items: center;
+}
+.address .iconfont{
+	font-size: 32rpx;
+	color: #1d89ee;
+	margin-right: 15rpx;
+}
+.jd_btn{
+	width: 112rpx;
+	height: 48rpx;
+	background-color: #3ea5ff;
+	border-radius: 10rpx;
+	font-size: 24rpx;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
