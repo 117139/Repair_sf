@@ -1,0 +1,66 @@
+/* pages/tixian/tixian.wxss */
+.container{
+	margin-top: 2rpx;
+}
+.tx_box{
+	width: 100%;
+	height: 120rpx;
+	padding: 0 24rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #fff;
+	margin-bottom: 2rpx;
+}
+.box_name{
+	font-family: PingFang-SC-Medium;
+	font-size: 32rpx;
+	color: #333333;
+}
+.tx_box1{
+	margin: 0;
+}
+.tx_box2{
+	width: 100%;
+	padding: 60rpx 24rpx 36rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-bottom: 2rpx;
+	background-color: #fff;
+	display: flex;
+	align-items: flex-end;
+}
+.tx_cny{
+	font-size: 43rpx;
+	color: #313131;
+}
+.tx_mon{
+	min-width: 0;
+	flex: 1;
+	font-size: 100rpx;
+	height: 101rpx;
+}
+.tx_all{
+	font-size: 28rpx;
+	color: #61b7ff;
+}
+.sub_btn{
+	margin-top: 108rpx;
+	width: 530rpx;
+	height: 88rpx;
+	background-image: linear-gradient(90deg, 
+		#59cafe 0%, 
+		#5ebdff 50%, 
+		#63b1ff 100%);
+	border-radius: 44rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: PingFang-SC-Medium;
+	font-size: 30rpx;
+	color: #ffffff;
+}

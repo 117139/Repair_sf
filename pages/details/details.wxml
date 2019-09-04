@@ -18,6 +18,7 @@
 		<view class="fz28">浙江省杭州市滨江区远方科技中心</view>
 	</view>
 	<view class="o_msg1">订单编号：23009495950</view>
+	<view class="o_msg1">联系方式：18300000000</view>
 	<view class="o_msg1">下单时间：2017-07-25</view>
 	<view class="order_msg">
 		<view class="scimg_tip">上传现场图片，师傅可以更好的了解您的问题~</view>
@@ -28,7 +29,9 @@
 					 wx:key="idx"
 					 data-idx="{{idx}}"
 					 bindtap="imgdel">
-				<image  src="{{filter.imgIP(item)}}" data-src="{{filter.imgIP(item)}}"
+				<!-- <image  src="{{filter.imgIP(item)}}" data-src="{{filter.imgIP(item)}}"
+					 mode="aspectFill"></image> -->
+				<image  src="{{item}}" data-src="{{item}}"
 					 mode="aspectFill"></image>
 			</view>
 			
@@ -46,6 +49,16 @@
 	<view class="o_pjmsg">
 		<view>维修费</view>
 		<view>¥80</view>
+	</view>
+	<view class="rz_box">
+		<view class="rz_name">配件</view>
+		<text class="mr20 fz28">:</text>
+		<input type="text" name="pj" placeholder="请输入配件费用"/>
+	</view>
+	<view class="rz_box">
+		<view class="rz_name">维修费</view>
+		<text class="mr20 fz28">:</text>
+		<input type="text" name="wxf" placeholder="请输入维修费用"/>
 	</view>
 	<view class="w100 dis_flex ju_c">
 		<view class="sub_btn">提交</view>

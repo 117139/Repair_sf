@@ -1,0 +1,47 @@
+/* pages/caiwu/caiwu.wxss */
+.cw_type{
+	width: 100%;
+	background-color: #fff;
+	display: flex;
+	height: 84rpx;
+	margin-bottom: 18rpx;
+}
+.type_one{
+	flex: 1;
+	height: 84rpx;
+	border-top: 2rpx solid #eee;
+	border-left: 1rpx solid #eee;
+	border-right: 1rpx solid #eee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 28rpx;
+	color: #333;
+}
+.type_one.cur{
+	color: #e11;
+}
+.cw_list{
+	width: 100%;
+	height: 130rpx;
+	padding: 25rpx 40rpx 25rpx 20rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: flex;
+	/* flex-direction: column; */
+	justify-content: space-between;
+	background-color: #fff;
+	margin-bottom: 2rpx;
+}
+.cw1{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.cw2{
+	align-items: flex-end;
+}
+.cee1111{
+	color: #e11;
+}

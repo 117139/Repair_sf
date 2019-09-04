@@ -1,0 +1,56 @@
+/* pages/mymoney/mymoney.wxss */
+.container{
+	width: 100%;
+}
+.moneybox{
+	width: 100%;
+	padding: 190rpx 65rpx 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.m1{
+	font-family: PingFang-SC-Medium;
+	font-size: 34rpx;
+	color: #000000;
+	margin-bottom: 20rpx;
+	text-align: center;
+}
+.m2{
+	font-family: PingFangSC-Regular;
+	font-size: 80rpx;
+	color: #282828;
+	margin-bottom: 145rpx;
+	text-align: center;
+}
+.m2 text{
+	font-size: 44rpx;
+}
+.tx_btn{
+	width: 100%;
+	height: 85rpx;
+	background-image: linear-gradient(90deg, 
+		#59cafe 0%, 
+		#56b7fd 50%, 
+		#53a8fc 100%);
+	border-radius: 43rpx;
+	font-family: PingFang-SC-Regular;
+	font-size: 34rpx;
+	color: #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.caiwu{
+	width: 100%;
+	padding: 20rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	font-size: 28rpx;
+	display: flex;
+	justify-content: space-between;
+}
+.ck_btn{
+	color: #61b7ff;
+}

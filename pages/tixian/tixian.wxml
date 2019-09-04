@@ -1,0 +1,27 @@
+<!--pages/tixian/tixian.wxml-->
+<view class="container">
+	<view class="tx_box">
+		<view class="box_name">提现</view>
+		<view class="fz28 c9">
+			已上传收款码
+			<!-- <view></view> -->
+			<!-- <text class="iconfont iconnext"></text> -->
+		</view>
+	</view>
+	<view class="tx_box tx_box1">
+		<view class="box_name">提现金额</view>
+	</view>
+	<view class="tx_box2">
+		<text class="tx_cny">￥</text>
+		<input class="tx_mon" type="number" name="money" bindblur='oniptblur' />
+	</view>
+	<view class="tx_box">
+		<view class="fz28 c6">可提现金额￥100</view>
+		<view class="tx_all">
+			全部提现
+		</view>
+	</view>
+	<view class="w100 dis_flex ju_c">
+		<view class="sub_btn" bindtap="txfuc">确认提现</view>
+	</view>
+</view>

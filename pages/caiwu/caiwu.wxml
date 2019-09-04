@@ -1,0 +1,33 @@
+<!--pages/caiwu/caiwu.wxml-->
+<view class="container">
+	<view class="cw_type">
+		<view class="type_one {{tidx==idx? 'cur':''}}"
+		wx:for="{{type}}" 
+		wx:for-index="idx" 
+		wx:for-item="item" 
+		wx:key="idx"
+		data-type="{{idx}}"
+		bindtap="bindcur">{{item}}</view>
+	</view>
+	<view class="w100" 
+		wx:if="{{tidx==idx}}"
+		wx:for="{{cw_data}}" 
+		wx:for-index="idx" 
+		wx:for-item="item" 
+		wx:key="idx">
+		<view class="cw_list"
+			wx:for="{{cw_data[idx]}}" 
+			wx:for-index="idx1" 
+			wx:for-item="item1" 
+			wx:key="idx1">
+			<view class="cw1">
+				<view class="fz28 c3">{{item1.name}}</view>
+				<view wx:if="{{item1.inr!==''}}" class="fz24 c9">{{item1.inr}}</view>
+			</view>
+			<view class="cw1 cw2">
+				<view class="fz32 cee1111">{{item1.pri}}</view>
+				<view class="fz24 c9">{{item1.time}}</view>
+			</view>
+		</view>
+	</view>
+</view>

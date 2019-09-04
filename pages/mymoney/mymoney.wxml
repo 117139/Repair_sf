@@ -1,0 +1,12 @@
+<!--pages/mymoney/mymoney.wxml-->
+<view class="container">
+	<view class="caiwu">
+		<view></view>
+		<view class="ck_btn" data-url="/pages/caiwu/caiwu" bindtap="jump">财务记录</view>
+	</view>
+	<view class="moneybox">
+		<view class="m1">我的资金</view>
+		<view class="m2"><text>￥</text>88.00</view>
+		<view class="tx_btn" data-url="/pages/tixian/tixian" bindtap="jump">提现</view>
+	</view>
+</view>

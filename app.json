@@ -1,10 +1,14 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/my/my",
+    "pages/caiwu/caiwu",
+    "pages/mymoney/mymoney",
+    "pages/tixian/tixian",
+    "pages/renzheng/renzheng",
     "pages/mymsg/mymsg",
     "pages/orderList/orderList",
     "pages/details/details",
-    "pages/index/index",
     "pages/logs/logs"
   ],
   "window":{

@@ -179,3 +179,29 @@
 	color: #666;
 	margin-bottom: 2rpx;
 }
+.rz_box{
+	width: 100%;
+	padding: 0 24rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 120rpx;
+	display: flex;
+	align-items: center;
+	margin-bottom: 2rpx;
+	background-color: #fff;
+}
+.rz_name{
+	width: 3em;
+	font-family: PingFang-SC-Medium;
+	font-size: 30rpx;
+	color: #333333;
+	text-align:justify;          
+	text-justify:distribute-all-lines; 
+	text-align-last:justify;     
+}
+.rz_box input{
+	min-width: 0;
+	flex: 1;
+	font-size: 26rpx;
+}

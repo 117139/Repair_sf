@@ -105,6 +105,11 @@ Page({
 						})
 						break;
 					}
+          that.data.imgb.push(tempFilePaths[i])
+          that.setData({
+            imgb: that.data.imgb
+          })
+          return
 					wx.uploadFile({
 							url: app.IPurl+'/api/upload_image/upload', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[i],
