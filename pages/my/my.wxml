@@ -11,6 +11,7 @@
 		<view class="user_zc">
 			<view class="zc_name">总资产(元)</view>
 			<view class="zc_val">1000.00</view>
+			<view class="tx_btn" data-url="/pages/tixian/tixian" bindtap="jump">提现</view>
 		</view>
 	</view>
 	<view class="my_list" data-url="/pages/renzheng/renzheng" bindtap="jump">
@@ -20,10 +21,10 @@
 		</view>
 		<text class="iconfont iconnext"></text>
 	</view>
-	<view class="my_list" data-url="/pages/mymoney/mymoney" bindtap="jump">
+	<view class="my_list" data-url="/pages/caiwu/caiwu" bindtap="jump">
 		<view class="list_name">
 			<image class="list_icon" src="../../static/images/my_08.png"></image>
-			我的资金
+			财务记录
 		</view>
 		<text class="iconfont iconnext"></text>
 	</view>

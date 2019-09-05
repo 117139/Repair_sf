@@ -1,10 +1,16 @@
 // pages/details/details.js
+var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
+var qqmapsdk;
+var location = "";
+var config = require('../../config.js');
+var app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+		activity_location:'请选择地址',
 		imgb:[]
   },
 
@@ -12,6 +18,40 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+   
+		/*判断是第一次加载还是从position页面返回
+        如果从position页面返回，会传递用户选择的地点*/
+    console.log(options)
+    if (options.address != null && options.address != '') {
+      //设置变量 address 的值
+      this.setData({
+        address: options.address
+      });
+    } else {
+      // 实例化API核心类
+      qqmapsdk = new QQMapWX({
+        //此key需要用户自己申请
+        key: 'FORBZ-KIPEF-WECJR-NFZKA-MREDV-FCF3O'
+      });
+      var that = this;
+      // 调用接口
+      qqmapsdk.reverseGeocoder({
+        success: function (res) {
+          // console.log(res.result.address);
+          that.setData({
+            // address: res.result.address,
+            activity_location: res.result.address
+          });
+          // console.log(that.data.address);
+        },
+        fail: function (res) {
+          //console.log(res);
+        },
+        complete: function (res) {
+          //console.log(res);
+        }
+      });
+    }
 
   },
 
@@ -26,7 +66,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+		var that = this;
+    console.log(getApp().data.activity_location);//从position跳转过来，可以
+    // console.log(this.data.address);
+    location = getApp().data.activity_location;
+    if (location != "") {
+      that.setData({
+        activity_location: location
+        // activity_location: this.data.address//这个没用，可能onshow最先获取不到onLoad值
+      });
+    }
+		let pages = getCurrentPages();
+		let currPage = pages[pages.length - 1];
+		if (currPage.data.addresschose) {
+        this.setData({
+            //将携带的参数赋值
+            activity_location: currPage.data.addresschose
+     	});
+		}
   },
 
   /**
@@ -63,6 +120,15 @@ Page({
   onShareAppMessage: function () {
 
   },
+	getLocation: function () {
+    // wx.navigateTo({
+    //   url: '/pages/addLocation/addLocation',
+    // });
+    wx.navigateTo({
+      url: "/pages/position/position"
+    });
+  },
+
 	imgdel(e){
 		var that =this
 		console.log(e.currentTarget.dataset.idx)
@@ -140,5 +206,27 @@ Page({
 			}
 		})
 	},
-	
+	call(e){
+		console.log(e.currentTarget.dataset.tel)
+		wx.makePhoneCall({
+			phoneNumber: e.currentTarget.dataset.tel 
+		})
+	},
+	subfuc1(e){
+		var that =this
+		if(that.data.imgb.length==0){
+			wx.showToast({
+				icon:'none',
+				title:'请上传图片'
+			})
+			return
+		}
+		if(that.data.activity_location=='请选择地址'||that.data.activity_location==""){
+			wx.showToast({
+				icon:'none',
+				title:'请上传图片'
+			})
+			return
+		}
+	}
 })

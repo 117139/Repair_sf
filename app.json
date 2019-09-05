@@ -1,44 +1,51 @@
 {
-  "pages":[
-    "pages/index/index",
+  "pages": [
     "pages/my/my",
+    "pages/index/index",
+    "pages/details/details",
+    "pages/position/position",
     "pages/caiwu/caiwu",
     "pages/mymoney/mymoney",
     "pages/tixian/tixian",
     "pages/renzheng/renzheng",
     "pages/mymsg/mymsg",
     "pages/orderList/orderList",
-    "pages/details/details",
     "pages/logs/logs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "上门维修",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
-	"tabBar": {
-	  "color": "#333333",
-	  "selectedColor": "#018be6",
-	  "list": [
-	    {
-	      "pagePath": "pages/index/index",
-	      "text": "首页",
-	      "iconPath": "/static/images/btn1_03.png",
-	      "selectedIconPath": "/static/images/btn_03.png"
-	    },
-	    {
-	      "pagePath": "pages/orderList/orderList",
-	      "text": "订单",
-	      "iconPath": "/static/images/btn_05.png",
-	      "selectedIconPath": "/static/images/btn1_05.png"
-	    },
-	    {
-	      "pagePath": "pages/my/my",
-	      "text": "我的",
-	      "iconPath": "/static/images/btn_07.png",
-	      "selectedIconPath": "/static/images/btn1_07.png"
-	    }
-	  ]
-	}
+  "tabBar": {
+    "color": "#333333",
+    "selectedColor": "#018be6",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/static/images/btn1_03.png",
+        "selectedIconPath": "/static/images/btn_03.png"
+      },
+      {
+        "pagePath": "pages/orderList/orderList",
+        "text": "订单",
+        "iconPath": "/static/images/btn_05.png",
+        "selectedIconPath": "/static/images/btn1_05.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "/static/images/btn_07.png",
+        "selectedIconPath": "/static/images/btn1_07.png"
+      }
+    ]
+  },
+	"permission":{
+	  "scope.userLocation":{
+	    "desc":"你的位置信息将用于小程序位置接口的"
+	  }
+	},
+  "sitemapLocation": "sitemap.json"
 }

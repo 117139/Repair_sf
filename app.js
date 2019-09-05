@@ -41,5 +41,11 @@ App({
 	},
   globalData: {
     userInfo: null
-  }
+  },
+	data: {
+			haveLocation: false,
+			activity_lat: -1,
+			activity_lng: -1,
+			activity_location: ""
+	}
 })

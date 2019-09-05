@@ -78,6 +78,8 @@
 	align-items: center;
 	background-color: #fff;
 	margin-bottom: 18rpx;
+	box-shadow: 0px 1px 3px 0px 
+		rgba(153, 153, 153, 0.19);
 }
 .o_address text{
 	font-size: 36rpx;
@@ -109,7 +111,7 @@
 	border-radius: 10rpx;
 	box-shadow: 0px 1px 3px 0px 
 		rgba(153, 153, 153, 0.19);
-	margin-bottom: 18rpx;
+	/* margin-bottom: 18rpx; */
 }
 .scimg_tip{
 	font-family: PingFang-SC-Regular;
@@ -144,7 +146,7 @@
 .addimg1>image{
 	width: 100%;
 	height: 100%;
-	border-radius: 20rpx;
+	/* border-radius: 20rpx; */
 }
 .sub_btn{
 	margin-top: 60rpx;

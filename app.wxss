@@ -54,7 +54,9 @@
 
 
 
-
+view{
+  -webkit-overflow-scrolling: touch;
+}
 
 page{
 	background-color: #f7f7f7;
@@ -337,6 +339,9 @@ page{
 
 .pb100{
 	padding-bottom: 100rpx;
+}
+.pb160{
+	padding-bottom: 160rpx;
 }
 /**/
 .lh50{
