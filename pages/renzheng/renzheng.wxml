@@ -42,11 +42,25 @@
 			<text class="mr20 fz28">:</text>
 			<input type="text" name="carid" placeholder="请输入您的身份证号"/>
 		</view>
-		<view class="rz_box">
+		<!-- <view class="rz_box1">
 			<view class="rz_name">擅长</view>
 			<text class="mr20 fz28">:</text>
-			<input type="text" name="shanchang" placeholder="请输入您的擅长"/>
-		</view>
+			<checkbox-group bindchange="checkboxChange" class="shanchang">
+				<label class="checkbox" wx:for="{{items}}"	
+          wx:for-index="idx" 
+          wx:for-item="item" 
+          wx:key="idx">
+					<checkbox value="{{item.name}}" name='sc' checked="{{item.checked}}"/>{{item.value}}
+				</label>
+			</checkbox-group>
+		</view> -->
+		<picker class="w100" bindchange="bindPickerChange" value="{{index}}" range="{{items}}" range-key="value">
+			<view class="rz_box">
+				<view class="rz_name">擅长</view>
+				<text class="mr20 fz28">:</text>
+				<input type="text" name="shanchang" placeholder="请输入您的擅长" value="{{items[index].value}}" disabled=""/>
+			</view>
+		</picker>
 		<view class="w100 dis_flex ju_c">
 			<button class="sub_btn" form-type="submit">保存</button>
 		</view>

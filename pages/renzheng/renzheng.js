@@ -9,7 +9,16 @@ Page({
 		setstate:0,
 		time:60,
 		tel:'',
-		sex:1
+		sex:1,
+		items: [
+      {name: '0', value: '家电维修0'},
+      {name: '1', value: '家电维修1', checked: 'true'},
+      {name: '12', value: '家电维修12'},
+      {name: '3', value: '家电维修3'},
+      {name: '45', value: '家电维修45'},
+      {name: '999', value: '家电维修999'},
+    ],
+		index:0
   },
 
   /**
@@ -66,6 +75,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+	bindPickerChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
+  },
+	checkboxChange: function(e) {
+    console.log('checkbox发生change事件，携带value值为：', e.detail.value)
   },
 	sexfuc(e){
 		console.log(e)

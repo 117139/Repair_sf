@@ -21,6 +21,17 @@
 	margin-bottom: 2rpx;
 	background-color: #fff;
 }
+.rz_box1{
+	width: 100%;
+	padding: 0 24rpx;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	display: flex;
+	/* align-items: center; */
+	margin-bottom: 2rpx;
+	background-color: #fff;
+}
 .rz_name{
 	width: 5em;
 	font-family: PingFang-SC-Medium;
@@ -29,6 +40,13 @@
 	text-align:justify;          
 	text-justify:distribute-all-lines; 
 	text-align-last:justify;     
+}
+.rz_box1 .rz_name{
+	padding-top: 30rpx;
+}
+
+.rz_box1 text{
+	padding-top: 30rpx;
 }
 .rz_box input{
 	min-width: 0;
@@ -88,4 +106,46 @@
 	font-weight: bold;
 	color: #ffffff;
 	border: 0;
+}
+
+.shanchang{
+	padding: 20rpx 0;
+}
+.checkbox{
+	font-size: 26rpx;
+	display: inline-flex;
+	align-items: center;
+	margin: 0 10rpx;
+}
+/*  重写 checkbox 样式  */
+
+/* 未选中的 背景样式 */
+
+checkbox .wx-checkbox-input {
+  border-radius: 50%; /* 圆角 */
+  width: 26rpx; /* 背景的宽 */
+  height: 26rpx; /* 背景的高 */
+}
+
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked {
+ border-color: #63b1ff; 
+  background: #63b1ff;
+}
+
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  border-radius: 50%; /* 圆角 */
+  width: 26rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 26rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx; /* 对勾大小 30rpx */
+  color: #fff; /* 对勾颜色 白色 */
+  background: transparent;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
 }

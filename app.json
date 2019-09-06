@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/renzheng/renzheng",
     "pages/my/my",
     "pages/index/index",
     "pages/details/details",
@@ -7,7 +8,6 @@
     "pages/caiwu/caiwu",
     "pages/mymoney/mymoney",
     "pages/tixian/tixian",
-    "pages/renzheng/renzheng",
     "pages/mymsg/mymsg",
     "pages/orderList/orderList",
     "pages/logs/logs"
