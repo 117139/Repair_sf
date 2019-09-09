@@ -6,14 +6,23 @@ Page({
   data: {
 		btnkg:0,
 		htmlReset:0,
-		datalist:[
-			'全部',
-			'未接单',
-			'进行中',
-			'已完成',
-			'评价',
-		],
-		pages:[1,1,1,1,1],
+    datalist: [
+      '全部',
+      '未接单',
+      '进行中',
+      '待确认',
+      '已确认',
+      '已完成',
+    ],
+    status: [
+      '-99',
+      '0',
+      '1',
+      '2',
+      '3',
+      '4',
+    ],
+    pages: [1, 1, 1, 1, 1, 1],
 		type:0,
 		goods:[
 				[
@@ -37,12 +46,18 @@ Page({
 				[],
 				[],
 				[],
+      [],
 		],
 		shopNum:[],
 		sum:0,
 		otype:-2
   },
   onLoad: function (option) {
+    if(!wx.getStorageSync('tokenstr')){
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
 		wx.setNavigationBarTitle({
 			title:'加载中...'
 		})
