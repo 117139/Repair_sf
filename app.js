@@ -16,12 +16,12 @@ App({
     					console.log(that.globalData.userInfo)
     					wx.setStorageSync('userInfo', res.userInfo)
     					if(!that.globalData.userInfo){
-    						// wx.reLaunch({
-    						//   url: '/pages/login/login',
-    						//   fail: (err) => {
-    						//     console.log("失败: " + JSON.stringify(err));
-    						//   }
-    						// })
+    						wx.reLaunch({
+    						  url: '/pages/login/login',
+    						  fail: (err) => {
+    						    console.log("失败: " + JSON.stringify(err));
+    						  }
+    						})
     					}else{
     						that.dologin()
     					}
@@ -29,11 +29,11 @@ App({
     			})
     			
         }else{
-				 //  wx.reLaunch({
-				 //      url: '/pages/login/login',
-				 //      fail: (err) => {
-				 //        console.log("失败: " + JSON.stringify(err));
-				 //      }
+				  // wx.reLaunch({
+				  //     url: '/pages/login/login',
+				  //     fail: (err) => {
+				  //       console.log("失败: " + JSON.stringify(err));
+				  //     }
     			// })
         }
       }
@@ -51,7 +51,7 @@ App({
 	        apipage:'login',
 	        nickname: uinfo.nickName,
 	        headpicurl: uinfo.avatarUrl,
-	        homeid: 0   //0用户端，1师傅端
+	        homeid: 1   //0用户端，1师傅端
 		    }
 				let rcode=res.code
 				console.log(res.code)
@@ -68,7 +68,8 @@ App({
 						if(res.data.error==0){
 	            console.log('登录成功')
 	            wx.setStorageSync('tokenstr', res.data.tokenstr)
-	            wx.setStorageSync('member', res.data.member)
+              wx.setStorageSync('member', res.data.member)
+	            wx.setStorageSync('zprice', res.data.price)
 	            // wx.setStorageSync('login', 'login')
 	            // wx.setStorageSync('morenaddress', res.data.user_member_shopping_address)
 	            // wx.setStorageSync('appcode', rcode)

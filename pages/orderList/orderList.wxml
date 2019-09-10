@@ -1,8 +1,6 @@
 <!--logs.wxml-->
-<!-- <import src="/utils/pageState/index.wxml" /> -->
+<import src="/utils/htmlStatus/index.wxml" />
 <wxs src="../../utils/filter.wxs" module="filter" />
-<!-- <template is="pageState" data="{{...pageState}}" /> -->
-<!-- <view wx:if="{{htmlReset==1}}" class="chongshi" bindtap='cload'>重试</view> -->
 <view class="container">
 	<!-- <view class="hengxian"></view> -->
 	<view class='dis_flex ju_a w100 pb40 pt20 bgfff mb20'>
@@ -17,29 +15,30 @@
 		wx:for-index="idx0" 
 		wx:for-item="item0" 
 		wx:key="idx0">
-		<view class="zanwu" wx:if="{{goods[idx0].length==0}}">暂无内容</view>
+		<!-- <view class="zanwu" wx:if="{{goods[idx0].length==0}}">暂无内容</view> -->
 		<view class="rw_one" wx:for="{{goods[idx0]}}"
 			wx:for-index="idx"
 			wx:for-item="item" 
 			wx:key="idx"
-			data-url="/pages/details/details?id=1" bindtap="jump">
-			<image class="rw_tx" src="../../static/images/tx.png"></image>
+			data-url="/pages/details/details?id={{item.out_trade_no}}" bindtap="jump" wx:if="{{item.id}}">
+			<image class="rw_tx" src="{{item.userpic}}"></image>
 			<view class="rw_msg">
 				<view class="dis_flex ju_b aic mb10">
-					<view class="fz32 c3">{{item.name}}</view>
-					<view class="fz24 c9">{{item.time}}</view>
+					<view class="fz32 c3">{{item.username}}</view>
+					<view class="fz24 c9">{{filter.getTime(item.addtime)}}</view>
 				</view>
-				<view class="fz26 c6 mb10">家电维修</view>
-				<view class="fz26 c9 oh2" style="width: 422rpx;">食堂饮水机扫码成功了，但是不出水，手机上显示正在喝水食堂饮水机扫码成功了，但是不出水，手机上显示正在喝水</view>
+				<view class="fz26 c6 mb10 oh1">{{item.shopgroupname}} {{item.shopname}}</view>
+				<view class="fz26 c9 oh2" style="width: 422rpx;">{{item.description}}</view>
 				<view class="dis_flex ju_b">
 					<view class="address">
 						<text class="iconfont icontubiaozhizuomoban_fuzhi"></text>
-						<text>{{item.address}}</text>
+						<text>{{item.address_str}}</text>
 					</view>
 					<view class="jd_btn" data-id="{{item.id}}" bindtap="order">去处理</view>
 				</view>
 			</view>
 		</view>
+    <template is="htmlStatus" data="{{...htmlStatus}}" />
 	</view>
 	
 	

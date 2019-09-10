@@ -1,20 +1,22 @@
 <!--pages/my/my.wxml-->
 
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
 	<view class="header">
 		<image class="mybg" src="../../static/images/my_02.jpg"></image>
 		<!-- <text class="iconfont iconshezhi" data-url="/pages/mymsg/mymsg" bindtap="jump"></text> -->
-		<view wx:if="{{userinfo}}" class="tx_btn" data-url="/pages/tixian/tixian" bindtap="jump">提现</view>
+		<view wx:if="{{userinfo!==''}}" class="tx_btn" data-url="/pages/tixian/tixian" bindtap="jump">提现</view>
 		<view class="user_msg">
-			<image class="user_tx" src="../../static/images/tx.png"></image>
-			<text wx:if="{{userinfo}}" class="user_name">昵称</text>
-			<text wx:if="{{!userinfo}}" class="user_name" 
+			<image wx:if="{{!member.NickName}}" class="user_tx" src="/static/images/tx.jpg"></image>
+			<image wx:if="{{member.NickName}}" class="user_tx" src="{{member.HeadPicUrl}}"></image>
+			<text wx:if="{{member.NickName}}" class="user_name">{{member.NickName}}</text>
+			<text wx:if="{{!member.NickName}}" class="user_name" 
         data-url='/pages/login/login' bindtap='jump'>点击登录</text>
 		</view>
 		<view  class="user_zc">
 			<view class="zc_name">总资产(元)</view>
-			<view wx:if="{{userinfo}}" class="zc_val">1000.00</view>
-			<view wx:if="{{!userinfo}}" class="zc_val">0.00</view>
+			<view wx:if="{{userinfo!==''}}" class="zc_val">{{filter.moneyFormat(zprice)}}</view>
+			<view wx:if="{{userinfo==''}}" class="zc_val">0.00</view>
 			
 		</view>
 	</view>

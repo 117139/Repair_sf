@@ -1,9 +1,11 @@
 <!--pages/tixian/tixian.wxml-->
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
 	<view class="tx_box">
-		<view class="box_name">提现</view>
-		<view class="fz28 c9">
-			已上传收款码
+		<view class="box_name">提现账号</view>
+    <image class='skimg' wx:if="{{skimg!=''}}" src='{{filter.imgIP(skimg)}}' bindtap='scpic'></image>
+		<view wx:if="{{skimg==''}}" class="fz28 c9 scimg" bindtap='scpic'>
+			点击上传收款码
 			<!-- <view></view> -->
 			<!-- <text class="iconfont iconnext"></text> -->
 		</view>
@@ -13,11 +15,11 @@
 	</view>
 	<view class="tx_box2">
 		<text class="tx_cny">￥</text>
-		<input class="tx_mon" type="number" name="money" bindblur='oniptblur' />
+		<input class="tx_mon" type="number" name="money" placeholder='0.00' bindblur='oniptblur' value='{{money}}'/>
 	</view>
-	<view class="tx_box">
-		<view class="fz28 c6">可提现金额￥100</view>
-		<view class="tx_all">
+	<view class="tx_box tx_box3">
+		<view class="fz28 c6 ">可提现金额￥{{filter.moneyFormat(zprice)}}</view>
+		<view class="tx_all" bindtap='moneyall'>
 			全部提现
 		</view>
 	</view>

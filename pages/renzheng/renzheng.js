@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    'member': wx.getStorageSync('member'),
+    yzm:'',
 		setstate:0,
 		time:60,
 		tel:'',
@@ -25,7 +27,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.gettype()
   },
 
   /**
@@ -97,6 +99,7 @@ Page({
 			tel:e.detail.value
 		})
 	},
+  
 	getcode(){
 		let that =this
 		
@@ -114,65 +117,68 @@ Page({
 				btnkg:1
 			})
 		}
-		that.codetime()
-		return
-		wx.request({
-			url:  app.IPurl+'/api/phoneCode',
-			data:  {
-					// tokenstr:that.data.tokenstr,
-					phone:that.data.tel
-		    },
-			header: {
-				'content-type': 'application/x-www-form-urlencoded' 
-			},
-			dataType:'json',
-			method:'POST',
-			success(res) {
-				that.setData({
-					btnkg:0
-				})
-				if(res.data.code=1){
-					wx.showToast({
-						icon:'none',
-						title:'发送成功'
-					})
-					that.codetime()
-				}else{
-					that.setData({
-						btnkg:0
-					})
-					if(res.data.msg){
-						wx.showToast({
-							icon:'none',
-							title:res.data.msg
-						})
-					}else{
-						wx.showToast({
-							icon:'none',
-							title:'操作失败'
-						})
-					}
-				}
-				
-				console.log(res.data.code)
-				// that.setData({
-				// 	yzm:res.data.code.substr(0,4)
-				// })
-				console.log(that.data.yzm)
-				// that.codetime()
-			},
-			fail(err){
-				that.setData({
-					btnkg:0
-				})
-				wx.showToast({
-					icon:'none',
-					title:'操作失败'
-				})
-				console.log(err)
-			}
-		})
-		
+    //'apipage': 'sendcode', "op": "reg", 'tel': vm.usertel
+    wx.request({
+      url: app.IPurl,
+      data: {
+        'apipage': 'sendcode',
+        "op": "reg", 
+        'tel': that.data.tel,
+        "tokenstr": wx.getStorageSync('tokenstr').tokenstr
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'get',
+      success(res) {
+        wx.hideLoading()
+        console.log(res.data)
+
+
+        if (res.data.error == 0) {
+
+          wx.showToast({
+            icon: 'none',
+            title: '发送成功',
+            duration: 1000
+          })
+          that.setData({
+            yzm: res.data.code.substr(0, 4)
+          })
+          that.codetime()
+        } else {
+          that.setData({
+            btnkg: 0
+          })
+          if (res.data.returnstr) {
+            wx.showToast({
+              icon: 'none',
+              title: res.data.returnstr
+            })
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '操作失败'
+            })
+          }
+        }
+
+
+      },
+      fail() {
+        that.setData({
+          btnkg: 0
+        })
+        wx.hideLoading()
+        wx.showToast({
+          icon: 'none',
+          title: '操作失败'
+        })
+      }
+    })
+	
+    
 	},
 	codetime(){
 		let that =this
@@ -198,24 +204,6 @@ Page({
 	formSubmit(e) {
 		console.log(app.globalData.userInfo)
 		let uinfo=app.globalData.userInfo
-		// console.log(uinfo.nickName)
-	  // if (uinfo===null){
-	  //   wx.showToast({
-	  //     title: '您的授权已失效，请重新授权',
-	  //     duration: 2000,
-	  //     icon: 'none'
-	  //   });
-	  //   setTimeout(function(){
-	  //     wx.reLaunch({
-	  //       url: '/pages/shouquan/shouquan',
-	  //       fail: (err) => {
-	  //         console.log("失败: " + JSON.stringify(err));
-	  //       }
-	  //     })
-	  //   },500) 
-	  //   return
-	  // }
-		// console.log(uinfo.avatarUrl)
 		let that =this
 	  console.log('form发生了submit事件，携带数据为：', e.detail.value)
 		let formresult=e.detail.value
@@ -234,100 +222,167 @@ Page({
 				icon:'none'
 			});
 			return false;
-		}
-		if (formresult.code=='') {
-			wx.showToast({
-				title: '验证码不能为空',
-				duration: 2000,
-				icon:'none'
-			});
-			return false;
-		}
-		if(formresult.shanchang==''){
-			wx.showToast({
-				title: '擅长不能为空',
-				duration: 2000,
-				icon:'none'
-			});
-			return false;
-		}
-		wx.showLoading({
-			title: '正在提交',
-			mask:true
-		})
-		// return
-		if(that.data.btnkg==1){
-			return
-		}else{
-			that.setData({
-				btnkg:1
-			})
-		}
-		return
-		wx.request({
-			url:  app.IPurl+'/api/loginBindUser',
-			data:  {
-					token:wx.getStorageSync('token'),
-					phone:formresult.tel,
-					password:formresult.pwd,
-					code:formresult.code
-		    },
-			header: {
-				'content-type': 'application/x-www-form-urlencoded' 
-			},
-			dataType:'json',
-			method:'POST',
-			success(res) {
-				console.log(res.data)
-				wx.hideLoading()
-				if(res.data.code==1){
-					wx.showToast({
-						title: '注册成功',
-						duration: 1000,
-						icon:'none'
-					});
-					setTimeout(function() {
-						that.setData({
-							btnkg:0
-						})
-						wx.reLaunch({
-							url:'/pages/index/index'
-						})
-					}, 500);
-					
-					wx.setStorageSync('login', 'login')
-					
-				}else{
-					that.setData({
-						btnkg:0
-					})
-					if(res.data.msg){
-						wx.showToast({
-							title: res.data.msg,
-							duration: 2000,
-							icon:'none'
-						});
-					}else{
-						wx.showToast({
-							title: '网络异常',
-							duration: 2000,
-							icon:'none'
-						});
-					}
-				}
-			},
-			fail() {
-				that.setData({
-					btnkg:0
-				})
-				wx.hideLoading()
-				wx.showToast({
-					title: '网络异常',
-					duration: 2000,
-					icon:'none'
-				});
-			}
-		})
-	},
+    }
+    if (formresult.code == '') {
+      wx.showToast({
+        title: '验证码不能为空',
+        duration: 2000,
+        icon: 'none'
+      });
+      return false;
+    }
+    if (formresult.code !== that.data.yzm) {
+      wx.showToast({
+        title: '验证码错误',
+        duration: 2000,
+        icon: 'none'
+      });
+      return false;
+    }
+    if (formresult.catid == '') {
+      wx.showToast({
+        title: '身份证不能为空',
+        duration: 2000,
+        icon: 'none'
+      });
+      return false;
+    }
+    if (!(/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(formresult.carid))) {
+
+      wx.showToast({
+        title: '身份证号码有误',
+        duration: 2000,
+        icon: 'none'
+      });
+
+      return false;
+
+    }
+    if (formresult.shanchang == '') {
+      wx.showToast({
+        title: '擅长不能为空',
+        duration: 2000,
+        icon: 'none'
+      });
+      return false;
+    }
 	
+    wx.showModal({
+      title: '提示',
+      content: '信息提交后将不可更改，请确认无误后进行提交',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.showLoading({
+            title: '正在提交',
+          })
+          wx.request({
+            url: app.IPurl,
+            data: {
+              apipage: 'edituserinfo',
+              realname: formresult.name,
+              sex: formresult.sex,
+              phone: formresult.tel,
+              idcard: formresult.carid,
+              usersign: formresult.shanchang,
+              "tokenstr": wx.getStorageSync('tokenstr').tokenstr
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            dataType: 'json',
+            method: 'POST',
+            success(res) {
+              // wx.hideLoading()
+              console.log(res.data)
+
+
+              if (res.data.error == 0) {
+
+                wx.showToast({
+                  icon: 'none',
+                  title: '提交成功',
+                  duration: 2000
+                })
+                app.dologin()
+                setTimeout(function () {
+                  wx.navigateBack()
+                }, 1000)
+
+              } else {
+                if (res.data.returnstr) {
+                  wx.showToast({
+                    icon: 'none',
+                    title: res.data.returnstr
+                  })
+                } else {
+                  wx.showToast({
+                    icon: 'none',
+                    title: '操作失败'
+                  })
+                }
+              }
+
+
+            },
+            fail() {
+              // wx.hideLoading()
+              wx.showToast({
+                icon: 'none',
+                title: '操作失败'
+              })
+            },
+            complete(){
+              wx.hideLoading()
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+
+	},
+  gettype() {
+    var that = this
+    wx.request({
+      url: app.IPurl,
+      data: {
+        apipage: "shop",
+        op: "grouplist",
+        // tokenstr:wx.getStorageSync('token')
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'get',
+      success(res) {
+        console.log(res.data)
+        if (res.data.list.length == 0) {  //数据为空
+          wx.showToast({
+            icon: 'none',
+            title: '暂无擅长分类'
+          })
+        } else if (res.data.list.length > 0) {                           //数据不为空
+          that.setData({
+            items: res.data.list
+          })
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '加载失败'
+          })
+        }
+      },
+      fail() {
+        wx.showToast({
+          icon: 'none',
+          title: '加载失败'
+        })
+      },
+      complete() {
+      }
+    })
+  },
 })

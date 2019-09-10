@@ -5,7 +5,8 @@ Page({
   data: {
     latitude: 0,//地图初次加载时的纬度坐标
     longitude: 0, //地图初次加载时的经度坐标
-    name:"" //选择的位置名称
+    name:"", //选择的位置名称
+    shownum:0
   },
   onLoad: function () {
     // 实例化API核心类
@@ -14,6 +15,18 @@ Page({
     });
    
     this.moveToLocation();   
+  },
+  onShow(){
+    
+    console.log('onshow')
+    if(this.data.shownum==1){
+      this.data.shownum++
+      this.setData({
+        shownum: this.data.shownum
+      })
+    }else{
+      // wx.navigateBack()
+    }
   },
   //移动选点
   moveToLocation: function () {

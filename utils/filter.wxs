@@ -11,8 +11,8 @@ var imgIP=function(img){
 }
 var moneyFormat = function(money) {
 		money=money-1+1
-    // return money.toFixed(2);
-    return money.toFixed(0);
+    return money.toFixed(2);
+    // return money.toFixed(0);
 }
 var getgimg = function (pic){
   if (!pic) {

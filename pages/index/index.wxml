@@ -1,8 +1,11 @@
 <!--pages/index/index.wxml-->
+<import src="/utils/htmlStatus/index.wxml" />
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
 	<image class="banner" src="../../static/images/banner_02.jpg"></image>
 	<view class="main">
 		<view class="sy_tit">任务推荐</view>
+    <view wx:if="{{rw_data.length==0}}" class='zanwu'>暂无数据</view>
 		<view class="rw_one"
 			wx:for="{{rw_data}}" 
 			wx:for-index="idx" 
@@ -10,18 +13,18 @@
 			wx:key="idx"
 			data-url=""
 			bindtap="">
-			<image class="rw_tx" src="../../static/images/tx.png"></image>
+			<image class="rw_tx" src="{{item.userpic}}"></image>
 			<view class="rw_msg">
 				<view class="dis_flex ju_b aic mb10">
-					<view class="fz32 c3">{{item.name}}</view>
-					<view class="fz24 c9">{{item.time}}</view>
+					<view class="fz32 c3 oh1 mw250">{{item.username}}</view>
+					<view class="fz24 c9">{{filter.getTime(item.addtime)}}</view>
 				</view>
-				<view class="fz26 c6 mb10">家电维修</view>
-				<view class="fz26 c9 oh2" style="width: 422rpx;">食堂饮水机扫码成功了，但是不出水，手机上显示正在喝水食堂饮水机扫码成功了，但是不出水，手机上显示正在喝水</view>
+				<view class="fz26 c6 mb10 oh1">{{item.shopgroupname}} {{item.shopname}}</view>
+				<view class="fz26 c9 oh2" style="width: 422rpx;">{{item.description}}</view>
 				<view class="dis_flex ju_b">
 					<view class="address">
 						<text class="iconfont icontubiaozhizuomoban_fuzhi"></text>
-						<text>{{item.address}}</text>
+						<text class='w400 oh1'>{{item.address_str}}</text>
 					</view>
 					<view class="jd_btn" data-id="{{item.id}}" bindtap="order">接单</view>
 				</view>

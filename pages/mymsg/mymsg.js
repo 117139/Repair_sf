@@ -73,4 +73,5 @@ Page({
 	    index: e.detail.value
 	  })
 	},
+  
 })

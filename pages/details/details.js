@@ -3,13 +3,18 @@ var QQMapWX = require('../../libs/qqmap-wx-jssdk.js');
 var qqmapsdk;
 var location = "";
 var config = require('../../config.js');
-var app = getApp();
+
+var htmlStatus = require('../../utils/htmlStatus/index.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    ldata: '',
+    o_id:'',
+    xqData:'',
 		activity_location:'请选择地址',
 		imgb:[]
   },
@@ -18,7 +23,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   
+   if(options.id){
+     this.setData({
+       o_id: options.id
+     })
+     this.getData(options.id)
+   }
 		/*判断是第一次加载还是从position页面返回
         如果从position页面返回，会传递用户选择的地点*/
     console.log(options)
@@ -46,6 +56,7 @@ Page({
         },
         fail: function (res) {
           //console.log(res);
+          
         },
         complete: function (res) {
           //console.log(res);
@@ -84,6 +95,28 @@ Page({
             activity_location: currPage.data.addresschose
      	});
 		}
+    wx.getSetting({
+      success: (res) => {
+        console.log(res.authSetting['scope.userLocation'])
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+         that.setData({
+           ldata:false
+         })
+        } else if (res.authSetting['scope.userLocation'] == undefined) {//初始化进入
+          // that.getLocation(that);
+          that.setData({
+            ldata: false
+          })
+        }
+        else { //授权后默认加载
+          console.log('授权后默认加载')
+          // that.getLocation(that);
+          that.setData({
+            ldata: true
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -120,6 +153,93 @@ Page({
   onShareAppMessage: function () {
 
   },
+  handler: function (e) {
+    var that = this;
+    if (!e.detail.authSetting['scope.userLocation']) {
+      that.setData({
+        ldata: false
+      })
+    } else {
+      that.setData({
+        ldata: true,
+      })
+      that.getLocation(that);
+      /*wx.getLocation({
+        type: 'gcj02',
+        success: function (res) {
+          var latitude = res.latitude
+          var longitude = res.longitude
+
+          that.setData({
+            latitude: latitude,
+            longitude: longitude
+          })
+          wx.openLocation({
+            latitude: latitude,
+            longitude: longitude,
+            scale: 28
+          })
+        }
+      })*/
+    }
+  },
+  
+  //判断获取地址授权
+  again_getLocation: function () {
+    let that = this;
+    // 获取位置信息
+    wx.getSetting({
+      success: (res) => {
+        console.log(res)
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {//非初始化进入该页面,且未授权
+          wx.showModal({
+            title: '是否授权当前位置',
+            content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
+            success: function (res) {
+              console.log(res)
+              if (res.cancel) {
+                that.setData({
+                  isshowCIty: false
+                })
+                wx.showToast({
+                  title: '授权失败',
+                  icon: 'none',
+                  duration: 1000
+                })
+              } else if (res.confirm) {
+                wx.openSetting({
+                  success: function (dataAu) {
+                    console.log(dataAu)
+                    if (dataAu.authSetting["scope.userLocation"] == true) {
+                      wx.showToast({
+                        title: '授权成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                      //再次授权，调用getLocationt的API
+                      that.getLocation(that);
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                    }
+                  }
+                })
+              }
+            }
+          })
+        } else if (res.authSetting['scope.userLocation'] == undefined) {//初始化进入
+          that.getLocation(that);
+        }
+        else { //授权后默认加载
+          that.getLocation(that);
+        }
+      }
+    })
+
+  },
 	getLocation: function () {
     // wx.navigateTo({
     //   url: '/pages/addLocation/addLocation',
@@ -149,69 +269,124 @@ Page({
 		})
 		
 	},
-	scpic(){
-		var that=this
-		wx.chooseImage({
-			count: 9,
-			sizeType: ['original', 'compressed'],
-			sourceType: ['album', 'camera'],
-			success (res) {
-				// tempFilePath可以作为img标签的src属性显示图片
-				console.log(res)
-				const tempFilePaths = res.tempFilePaths
-				const imglen=that.data.imgb.length
-				for(var i=0;i<tempFilePaths.length;i++){
-					console.log(imglen)
-					var newlen=Number(imglen)+Number(i)
-					console.log(newlen)
-					if(newlen==9){
-						wx.showToast({
-							icon:'none',
-							title:'最多可上传九张'
-						})
-						break;
-					}
-          that.data.imgb.push(tempFilePaths[i])
-          that.setData({
-            imgb: that.data.imgb
+  scpic() {
+    var that = this
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        console.log(res)
+        const tempFilePaths = res.tempFilePaths
+        const imglen = that.data.imgb.length
+        for (var i = 0; i < tempFilePaths.length; i++) {
+          console.log(imglen)
+          var newlen = Number(imglen) + Number(i)
+          console.log(newlen)
+          if (newlen == 9) {
+            wx.showToast({
+              icon: 'none',
+              title: '最多可上传九张'
+            })
+            break;
+          }
+          wx.uploadFile({
+            url: app.IPurl, //仅为示例，非真实的接口地址
+            filePath: tempFilePaths[i],
+            name: 'upfile',
+            formData: {
+              'apipage': 'uppic',
+              // "tokenstr": wx.getStorageSync('tokenstr').tokenstr, 
+            },
+            success(res) {
+              console.log(res.data)
+              var ndata = JSON.parse(res.data)
+              console.log(ndata)
+              console.log(ndata.error == 0)
+              if (ndata.error == 0) {
+                that.data.imgb.push(ndata.url)
+                that.setData({
+                  imgb: that.data.imgb
+                })
+              } else {
+                wx.showToast({
+                  icon: "none",
+                  title: "上传失败"
+                })
+              }
+            }
           })
-          return
-					wx.uploadFile({
-							url: app.IPurl+'/api/upload_image/upload', //仅为示例，非真实的接口地址
-							filePath: tempFilePaths[i],
-							name: 'images',
-							formData: {
-								'module_name': 'used'
-							},
-							success (res){
-								console.log(res.data)
-								var ndata=JSON.parse(res.data)
-								console.log(ndata)
-								console.log(ndata.errcode==0)
-								if(ndata.errcode==0){
-									that.data.imgb.push(ndata.retData[0])
-									that.setData({
-										imgb:that.data.imgb
-									})
-								}else{
-									wx.showToast({
-										icon:"none",
-										title:"上传失败"
-									})
-								}
-							}
-						})
-					
-				}
-			}
-		})
-	},
+
+        }
+      }
+    })
+  },
 	call(e){
 		console.log(e.currentTarget.dataset.tel)
 		wx.makePhoneCall({
 			phoneNumber: e.currentTarget.dataset.tel 
 		})
 	},
+  getData(id){
+    let that = this
+    const htmlStatus1 = htmlStatus.default(that)
+    wx.request({
+      url: app.IPurl,
+      data: {
+        apipage: 'smwx',
+        "tokenstr": wx.getStorageSync('tokenstr').tokenstr,
+        op: 'orderinfo',
+        "out_trade_no": id,
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'get',
+      success(res) {
+        if (res.data.error == 0) {   //成功
+          console.log(res.data)
+          that.setData({
+            xqData: res.data.data,
+          })
+          // console.log(that.data.xqData)
+          htmlStatus1.finish()    // 切换为finish状态
+
+
+        } else {  //失败
+          if (res.data.returnstr) {
+            wx.showToast({
+              icon: 'none',
+              title: res.data.returnstr
+            })
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '加载失败'
+            })
+          }
+          htmlStatus1.error()    // 切换为error状态
+        }
+
+        // htmlStatus1.error()    // 切换为error状态
+      },
+      fail(err) {
+        wx.showToast({
+          icon: "none",
+          title: "加载失败"
+        })
+
+        console.log(err)
+        htmlStatus1.error()    // 切换为error状态
+      },
+      complete() {
+        wx.setNavigationBarTitle({
+          title: '订单详情'
+        })
+      }
+    })
+  },
 	subfuc1(e){
 		var that =this
 		if(that.data.imgb.length==0){
