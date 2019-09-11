@@ -27,12 +27,12 @@
 					<view class="fz32 c3">{{item.username}}</view>
 					<view class="fz24 c9">{{filter.getTime(item.addtime)}}</view>
 				</view>
-				<view class="fz26 c6 mb10 oh1">{{item.shopgroupname}} {{item.shopname}}</view>
+				<view class="fz26 c6 mb10 oh1">{{item.shopgroupname}} {{item.name}}</view>
 				<view class="fz26 c9 oh2" style="width: 422rpx;">{{item.description}}</view>
 				<view class="dis_flex ju_b">
 					<view class="address">
 						<text class="iconfont icontubiaozhizuomoban_fuzhi"></text>
-						<text>{{item.address_str}}</text>
+						<text class='oh1 w400'>{{item.address_str}}</text>
 					</view>
 					<view class="jd_btn" data-id="{{item.id}}" bindtap="order">去处理</view>
 				</view>

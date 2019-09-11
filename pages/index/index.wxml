@@ -19,7 +19,7 @@
 					<view class="fz32 c3 oh1 mw250">{{item.username}}</view>
 					<view class="fz24 c9">{{filter.getTime(item.addtime)}}</view>
 				</view>
-				<view class="fz26 c6 mb10 oh1">{{item.shopgroupname}} {{item.shopname}}</view>
+				<view class="fz26 c6 mb10 oh1">{{item.shopgroupname}} {{item.name}}</view>
 				<view class="fz26 c9 oh2" style="width: 422rpx;">{{item.description}}</view>
 				<view class="dis_flex ju_b">
 					<view class="address">

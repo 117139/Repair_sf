@@ -27,6 +27,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // console.log(wx.getStorageSync('member'))
+    this.setData({
+      'member': wx.getStorageSync('member'),
+    })
     this.gettype()
   },
 
@@ -41,7 +45,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
@@ -358,7 +362,7 @@ Page({
       dataType: 'json',
       method: 'get',
       success(res) {
-        console.log(res.data)
+        // console.log(res.data)
         if (res.data.list.length == 0) {  //数据为空
           wx.showToast({
             icon: 'none',

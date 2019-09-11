@@ -16,7 +16,9 @@ Page({
     o_id:'',
     xqData:'',
 		activity_location:'请选择地址',
-		imgb:[]
+		imgb:[],
+    pjpri:0,
+    wxpri:0,
   },
 
   /**
@@ -90,9 +92,8 @@ Page({
 		let pages = getCurrentPages();
 		let currPage = pages[pages.length - 1];
 		if (currPage.data.addresschose) {
-        this.setData({
-            //将携带的参数赋值
-            activity_location: currPage.data.addresschose
+      this.setData({//将携带的参数赋值
+        activity_location: currPage.data.addresschose
      	});
 		}
     wx.getSetting({
@@ -269,7 +270,118 @@ Page({
 		})
 		
 	},
+
   scpic() {
+    var that = this
+    wx.chooseImage({
+      count: 9,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        console.log(res)
+        const tempFilePaths = res.tempFilePaths
+        // that.setData({
+        //   img1: tempFilePaths
+        // })
+        const imglen = that.data.imgb.length
+        that.upimg(tempFilePaths,0)
+        /*for (var i = 0; i < tempFilePaths.length; i++) {
+          var newlen = Number(imglen) + Number(i)
+          if (newlen == 9) {
+            wx.showToast({
+              icon: 'none',
+              title: '最多可上传九张'
+            })
+            break;
+          }
+         (function(i){
+           setTimeout(function () {
+             that.upimg(tempFilePaths[i], i)
+           }, 10000)
+         }(i))
+          
+
+        }*/
+      }
+    })
+  },
+  upimg(imgs,i) {
+    var that = this
+    const imglen = that.data.imgb.length
+    var newlen = Number(imglen) + Number(i)
+    if (imglen == 9) {
+      wx.showToast({
+        icon: 'none',
+        title: '最多可上传九张'
+      })
+      return
+    }
+    // console.log(img1)
+    wx.uploadFile({
+      url: app.IPurl, //仅为示例，非真实的接口地址
+      filePath: imgs[i],
+      name: 'upfile',
+      formData: {
+        'apipage': 'uppic',
+      },
+      success(res) {
+        // console.log(res.data)
+        var ndata = JSON.parse(res.data)
+        // console.log(ndata)
+        // console.log(ndata.error == 0)
+        if (ndata.error == 0) {
+          console.log(imgs[i], i, ndata.url)
+          var newdata = that.data.imgb
+          console.log(i)
+          newdata.push(ndata.url)
+          that.setData({
+            imgb: newdata
+          })
+          i++
+          that.upimg(imgs, i)
+        } else {
+          wx.showToast({
+            icon: "none",
+            title: "上传失败"
+          })
+        }
+      }
+    })
+  },
+  /*upimg(img1,i){
+    var that =this
+    // console.log(img1)
+      wx.uploadFile({
+        url: app.IPurl, //仅为示例，非真实的接口地址
+        filePath: img1,
+        name: 'upfile',
+        formData: {
+          'apipage': 'uppic',
+        },
+        success(res) {
+          // console.log(res.data)
+          var ndata = JSON.parse(res.data)
+          // console.log(ndata)
+          // console.log(ndata.error == 0)
+          if (ndata.error == 0) {
+            console.log(img1, i, ndata.url)
+            var newdata = that.data.imgb
+            console.log(i)
+            newdata.push(ndata.url)
+            that.setData({
+              imgb: newdata
+            })
+          } else {
+            wx.showToast({
+              icon: "none",
+              title: "上传失败"
+            })
+          }
+        }
+      })
+  },*/
+  /*scpic() {
     var that = this
     wx.chooseImage({
       count: 9,
@@ -321,7 +433,7 @@ Page({
         }
       }
     })
-  },
+  },*/
 	call(e){
 		console.log(e.currentTarget.dataset.tel)
 		wx.makePhoneCall({
@@ -387,8 +499,20 @@ Page({
       }
     })
   },
+  price1(e) { 
+    this.setData({
+      pjpri: e.detail.value
+    })
+  },
+  price2(e){
+    this.setData({
+      wxpri: e.detail.value
+    })
+  },
 	subfuc1(e){
 		var that =this
+    console.log(that.data.imgb)
+    console.log(that.data.imgb.length)
 		if(that.data.imgb.length==0){
 			wx.showToast({
 				icon:'none',
@@ -399,9 +523,235 @@ Page({
 		if(that.data.activity_location=='请选择地址'||that.data.activity_location==""){
 			wx.showToast({
 				icon:'none',
-				title:'请上传图片'
+        title:'请选择地址'
 			})
 			return
 		}
-	}
+    var imbox = that.data.imgb
+    imbox = imbox.join(',')
+    if(that.data.btnkg==1){
+      return
+    }else{
+      that.setData({
+        btnkg:1
+      })
+    }
+    wx.request({
+      url: app.IPurl,
+      data: {
+        apipage: 'smwx',
+        "tokenstr": wx.getStorageSync('tokenstr').tokenstr,
+        op: 'orderlist_lbs_price',
+        "id": that.data.xqData.id,
+        task_pics: imbox ,    //图片
+        task_address: that.data.activity_location, //地址
+        price1: '', //配件费
+        price2: '', //维修费
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'get',
+      success(res) {
+        if (res.data.error == 0) {   //成功
+          console.log(res.data)
+         wx.showToast({
+           icon:"none",
+           title: '提交成功',
+         })
+          setTimeout(function(){
+            that.setData({
+              btnkg: 0
+            })
+            var id = that.data.o_id
+            that.getData(id)
+          },500)
+        } else {  //失败
+          that.setData({
+            btnkg: 0
+          })
+          if (res.data.returnstr) {
+            wx.showToast({
+              icon: 'none',
+              title: res.data.returnstr
+            })
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '操作失败'
+            })
+          }
+        }
+      },
+      fail(err) {
+        that.setData({
+          btnkg: 0
+        })
+        wx.showToast({
+          icon: "none",
+          title: "操作失败"
+        })
+
+        console.log(err)
+      }
+    })
+	},
+
+  subfuc2(e) {
+    var that = this
+
+    if (that.data.pjpri == 0) {
+      wx.showToast({
+        icon: 'none',
+        title: '请输入配件费用'
+      })
+      return
+    }
+    if (that.data.wxpri == 0) {
+      wx.showToast({
+        icon: 'none',
+        title: '请选择维修费用址'
+      })
+      return
+    }
+
+    if (that.data.btnkg == 1) {
+      return
+    } else {
+      that.setData({
+        btnkg: 1
+      })
+    }
+    wx.request({
+      url: app.IPurl,
+      data: {
+        apipage: 'smwx',
+        "tokenstr": wx.getStorageSync('tokenstr').tokenstr,
+        op: 'orderlist_lbs_price',
+        "id": that.data.xqData.id,
+        price1: that.data.pjpri, //配件费
+        price2: that.data.wxpri, //维修费
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'get',
+      success(res) {
+        if (res.data.error == 0) {   //成功
+          console.log(res.data)
+          wx.showToast({
+            icon: "none",
+            title: '提交成功',
+          })
+          setTimeout(function () {
+            that.setData({
+              btnkg: 0
+            })
+            var id = that.data.o_id
+            that.getData(id)
+          }, 500)
+        } else {  //失败
+          that.setData({
+            btnkg: 0
+          })
+          if (res.data.returnstr) {
+            wx.showToast({
+              icon: 'none',
+              title: res.data.returnstr
+            })
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '操作失败'
+            })
+          }
+        }
+      },
+      fail(err) {
+        that.setData({
+          btnkg: 0
+        })
+        wx.showToast({
+          icon: "none",
+          title: "操作失败"
+        })
+
+        console.log(err)
+      }
+    })
+  },
+  subfuc3(e) {
+    var that = this
+
+    wx.showModal({
+      title: '提示',
+      content: '是否确定完成服务',
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          wx.request({
+            url: app.IPurl,
+            data: {
+              apipage: 'smwx',
+              "tokenstr": wx.getStorageSync('tokenstr').tokenstr,
+              op: 'order_taskover',
+              "out_trade_no": that.data.xqData.out_trade_no,
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            dataType: 'json',
+            method: 'get',
+            success(res) {
+              if (res.data.error == 0) {   //成功
+                console.log(res.data)
+                wx.showToast({
+                  icon: "none",
+                  title: '操作成功',
+                })
+                setTimeout(function () {
+                  that.setData({
+                    btnkg: 0
+                  })
+                  var id = that.data.o_id
+                  that.getData(id)
+                }, 500)
+              } else {  //失败
+                that.setData({
+                  btnkg: 0
+                })
+                if (res.data.returnstr) {
+                  wx.showToast({
+                    icon: 'none',
+                    title: res.data.returnstr
+                  })
+                } else {
+                  wx.showToast({
+                    icon: 'none',
+                    title: '操作失败'
+                  })
+                }
+              }
+            },
+            fail(err) {
+              that.setData({
+                btnkg: 0
+              })
+              wx.showToast({
+                icon: "none",
+                title: "操作失败"
+              })
+
+              console.log(err)
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
+  },
 })

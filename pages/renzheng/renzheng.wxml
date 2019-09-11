@@ -15,7 +15,7 @@
         <view class="sex_k">
           <view wx:if="{{sex==1}}" class="sex_n"></view>
         </view>
-
+          男
       </view>
       <view wx:if="{{!member.RealName}}" class="sexbox" data-sex="2" bindtap="sexfuc">
         <view class="sex_k">

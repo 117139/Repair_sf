@@ -54,13 +54,13 @@ Page({
 
   },
   onShow() {
-    // var pages=[1,1,1,1,1]
-    // var goods=[ [],[],[],[],[], ]
-    // this.data.goods=goods
-    // this.setData({
-    // 	pages:pages,
-    // 	goods:this.data.goods
-    // })
+    var pages = [1, 1, 1, 1, 1, 1]
+    var goods = [[], [], [], [], [], [] ]
+    this.data.goods=goods
+    this.setData({
+    	pages:pages,
+    	goods:this.data.goods
+    })
     if (this.data.btnkg == 1) {
       that.setData({
         btnkg: 0
@@ -70,6 +70,13 @@ Page({
     this.getOrderList('onshow')
   },
   retry() {
+    var pages = [1, 1, 1, 1, 1, 1]
+    var goods = [[], [], [], [], [], []]
+    this.data.goods = goods
+    this.setData({
+      pages: pages,
+      goods: this.data.goods
+    })
     this.getOrderList()
   },
   onReady() {
@@ -108,6 +115,7 @@ Page({
     let that = this
     const htmlStatus1 = htmlStatus.default(that)
     console.log('获取列表')
+    console.log(wx.getStorageSync('userInfo'))
     if (!wx.getStorageSync('userInfo')) {
       htmlStatus1.dataNull()
       return

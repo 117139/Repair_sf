@@ -1,4 +1,6 @@
 <!--pages/caiwu/caiwu.wxml-->
+<import src="/utils/htmlStatus/index.wxml" />
+<wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
 	<view class="cw_type">
 		<view class="type_one {{tidx==idx? 'cur':''}}"
@@ -21,13 +23,15 @@
 			wx:for-item="item1" 
 			wx:key="idx1">
 			<view class="cw1">
-				<view class="fz28 c3">{{item1.name}}</view>
-				<view wx:if="{{item1.inr!==''}}" class="fz24 c9">{{item1.inr}}</view>
+				<view class="fz28 c3">{{item1.TypeName}}</view>
+				<view wx:if="{{item1.BeiZhuName!==''}}" class="fz24 c9">{{item1.BeiZhuName}}</view>
 			</view>
 			<view class="cw1 cw2">
-				<view class="fz32 cee1111">{{item1.pri}}</view>
-				<view class="fz24 c9">{{item1.time}}</view>
+				<view class="fz32 cee1111">{{item1.Sign}}{{item1.Price}}</view>
+				<view wx:if="{{item1.AddTime}}" class="fz24 c9">{{filter.getTime(item1.AddTime)}}</view>
 			</view>
 		</view>
+    
+    <template is="htmlStatus" data="{{...htmlStatus}}" />
 	</view>
 </view>

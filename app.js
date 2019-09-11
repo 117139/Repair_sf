@@ -4,12 +4,19 @@ App({
 	IPurl1:'http://smwx.800123456.top/',
   onLaunch: function () {
     let that=this
+    wx.removeStorageSync('userInfo')
+    wx.removeStorageSync('userWxmsg')
+    wx.removeStorageSync('tokenstr')
+    wx.removeStorageSync('member')
+    wx.removeStorageSync('zprice')
     // 获取用户信息
     wx.getSetting({
       success: res => {
         console.log('16app'+JSON.stringify(res))
+        console.log(res.authSetting['scope.userInfo'])
         if (res.authSetting['scope.userInfo']==true) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          console.log('已经授权')
     			wx.getUserInfo({
     				success(res) {
     					that.globalData.userInfo = res.userInfo
@@ -29,6 +36,7 @@ App({
     			})
     			
         }else{
+          wx.removeStorageSync('userInfo')
 				  // wx.reLaunch({
 				  //     url: '/pages/login/login',
 				  //     fail: (err) => {
@@ -70,6 +78,11 @@ App({
 	            wx.setStorageSync('tokenstr', res.data.tokenstr)
               wx.setStorageSync('member', res.data.member)
 	            wx.setStorageSync('zprice', res.data.price)
+              setTimeout(function () {
+                if (getCurrentPages().length != 0) {
+                  getCurrentPages()[getCurrentPages().length - 1].onLoad()
+                }
+              }, 0)
 	            // wx.setStorageSync('login', 'login')
 	            // wx.setStorageSync('morenaddress', res.data.user_member_shopping_address)
 	            // wx.setStorageSync('appcode', rcode)

@@ -17,7 +17,9 @@ Page({
   onLoad: function (options) {
     var usermsg = wx.getStorageSync('userInfo')
     this.setData({
-      userInfo: usermsg
+      userInfo: usermsg,
+      'member': wx.getStorageSync('member'),
+      'zprice': wx.getStorageSync('zprice'),
     })
     /*if (!usermsg) {
       // 获取用户信息
@@ -73,10 +75,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-      this.setData({
-        'member': wx.getStorageSync('member'),
-        'zprice': wx.getStorageSync('zprice'),
-      })
+    if (wx.getStorageSync('userInfo')){
+      app.dologin()
+    }
+      
   },
 
   /**

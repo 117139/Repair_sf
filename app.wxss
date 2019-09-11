@@ -357,7 +357,9 @@ page {
 .ml10 {
   margin-left: 10rpx;
 }
-
+.mt20{
+  margin-top: 20rpx;
+}
 .mr30 {
   margin-right: 30rpx;
 }

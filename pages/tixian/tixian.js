@@ -88,7 +88,7 @@ Page({
       })
       return
     }
-    if (!that.data.money) {
+    if (!that.data.money || that.data.money==0) {
       wx.showToast({
         icon: "none",
         title: '请输入提现金额'

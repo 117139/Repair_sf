@@ -98,7 +98,8 @@ Page({
         })
         if (res.data.error == 0) {
           wx.showToast({
-            title: '操作成功'
+            icon:"none",
+            title: '接单成功'
           })
           setTimeout(function(){
             that.setData({
