@@ -82,6 +82,9 @@ Page({
   onReady() {
 
   },
+  onPullDownRefresh: function () {
+    this.retry()
+  },
   /**
   * 页面上拉触底事件的处理函数
   */
@@ -118,6 +121,9 @@ Page({
     console.log(wx.getStorageSync('userInfo'))
     if (!wx.getStorageSync('userInfo')) {
       htmlStatus1.dataNull()
+      wx.setNavigationBarTitle({
+        title: '订单列表'
+      })
       return
     }
     // return
@@ -142,6 +148,8 @@ Page({
       dataType: 'json',
       method: 'get',
       success(res) {
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
         if (res.data.error == 0) {   //成功
           console.log(ttype)
           let resultd = res.data.list

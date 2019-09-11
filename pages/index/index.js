@@ -54,14 +54,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log('下拉')
+    this.setData({
+      page: 1,
+      rw_data: []
+    })
+    this.getOrderList()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    
+    this.getOrderList()
   },
 
   /**
@@ -145,6 +151,9 @@ Page({
     console.log('获取列表')
     if (!wx.getStorageSync('userInfo')) {
       htmlStatus1.dataNull()
+      wx.setNavigationBarTitle({
+        title: '上门维修'
+      })
       return
     }
     wx.request({
@@ -162,6 +171,8 @@ Page({
       dataType: 'json',
       method: 'get',
       success(res) {
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
         if (res.data.error == 0) {   //成功
           console.log(ttype)
           let resultd = res.data.list

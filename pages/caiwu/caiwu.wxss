@@ -1,10 +1,17 @@
 /* pages/caiwu/caiwu.wxss */
+.container{
+  padding-top: 102rpx;
+  box-sizing: border-box;
+}
 .cw_type{
 	width: 100%;
 	background-color: #fff;
 	display: flex;
 	height: 84rpx;
-	margin-bottom: 18rpx;
+	/* margin-bottom: 18rpx; */
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 .type_one{
 	flex: 1;

@@ -138,7 +138,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getData(this.data.o_id)
   },
 
   /**
@@ -441,6 +441,9 @@ Page({
 		})
 	},
   getData(id){
+    wx.setNavigationBarTitle({
+      title: '加载中...'
+    })
     let that = this
     const htmlStatus1 = htmlStatus.default(that)
     wx.request({
@@ -457,6 +460,8 @@ Page({
       dataType: 'json',
       method: 'get',
       success(res) {
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
         if (res.data.error == 0) {   //成功
           console.log(res.data)
           that.setData({
@@ -465,7 +470,7 @@ Page({
           // console.log(that.data.xqData)
           htmlStatus1.finish()    // 切换为finish状态
 
-
+          
         } else {  //失败
           if (res.data.returnstr) {
             wx.showToast({
@@ -754,4 +759,9 @@ Page({
     })
     
   },
+  pveimg(e){
+    var curr = e.currentTarget.dataset.src
+    var urls = e.currentTarget.dataset.array
+    app.pveimg(curr, urls)
+  }
 })

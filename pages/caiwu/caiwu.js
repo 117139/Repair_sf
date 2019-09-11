@@ -74,7 +74,16 @@ Page({
     })
     this.getOrderList('onshow')
   },
-
+  retry(){
+    var pages = [1, 1, 1]
+    var cw_data = [[], [], []]
+    this.data.cw_data = cw_data
+    this.setData({
+      pages: pages,
+      cw_data: this.data.cw_data
+    })
+    this.getOrderList('onshow')
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -93,7 +102,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.retry()
   },
 
   /**
@@ -206,7 +215,8 @@ Page({
           }
           htmlStatus1.error()    // 切换为error状态
         }
-
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
         // htmlStatus1.error()    // 切换为error状态
       },
       fail(err) {

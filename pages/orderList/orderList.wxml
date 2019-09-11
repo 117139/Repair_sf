@@ -3,7 +3,7 @@
 <wxs src="../../utils/filter.wxs" module="filter" />
 <view class="container">
 	<!-- <view class="hengxian"></view> -->
-	<view class='dis_flex ju_a w100 pb40 pt20 bgfff mb20'>
+	<view class='olist_tit'>
 		<block wx:for="{{datalist}}" wx:for-index="idx" wx:for-item="item" wx:key="idx">
 			<view class="{{type==idx?'fz28 typecur':'c9 fz28'}}" data-type="{{idx}}" bindtap='bindcur'>{{item}}</view>
 		</block>

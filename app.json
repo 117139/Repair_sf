@@ -1,4 +1,5 @@
 {
+  
   "pages": [
     "pages/index/index",
     "pages/tixian/tixian",
@@ -14,6 +15,7 @@
     "pages/logs/logs"
   ],
   "window": {
+    "enablePullDownRefresh": true,
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "上门维修",

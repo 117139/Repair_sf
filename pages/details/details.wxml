@@ -1,6 +1,8 @@
 <!--pages/details/details.wxml-->
+<import src="/utils/htmlStatus/index.wxml" />
 <wxs src="../../utils/filter.wxs" module="filter" />
-<view class="container">
+<template is="htmlStatus" data="{{...htmlStatus}}" />
+<view wx:if="{{xqData.statusname}}" class="container">
 	<view class="o_header">
 		<image class="user_tx" src="{{xqData.userpic}}"></image>
 		<view class="user_msg">
@@ -14,14 +16,14 @@
 		<view class='oh1'>{{xqData.shopgroupname}} {{xqData.name}}</view>
 		<view>{{xqData.description}}</view>
     <view wx:if="{{xqData.pics}}" class="imgbox">
-			<view class="addimg1" wx:for="{{filter.getgimgarr(xqData.pics)}}" 
+			<view class="addimg1" wx:for="{{filter.getgimgarrIP(xqData.pics)}}" 
 					 wx:for-index="idx"
 					 wx:for-item="item"
-					 wx:key="idx"
-					 data-idx="{{idx}}"
-					 bindtap="imgdel">
-				<image  src="{{filter.imgIP(item)}}" data-src="{{filter.imgIP(item)}}"
-					 mode="aspectFill"></image>
+					 wx:key="idx">
+				<image  src="{{item}}" 
+          data-src="{{item}}" 
+          data-array="{{filter.getgimgarrIP(xqData.pics)}}"
+          mode="aspectFill" bindtap='pveimg'></image>
 			</view>
 		</view>
 	</view>
@@ -35,12 +37,14 @@
 	<view wx:if="{{xqData.task_address}}" class="order_msg mt20">
   	<view class="scimg_tip">到达服务地点，拍照上传，进行定位，确保准确到达~</view>
     <view  class="imgbox mb40">
-			<view class="addimg1" wx:for="{{filter.getgimgarr(xqData.task_pics)}}" 
+			<view class="addimg1" wx:for="{{filter.getgimgarrIP(xqData.task_pics)}}" 
 					 wx:for-index="idx"
 					 wx:for-item="item"
 					 wx:key="idx">
-				<image  src="{{filter.imgIP(item)}}" data-src="{{filter.imgIP(item)}}"
-					 mode="aspectFill"></image>
+				<image  src="{{item}}" 
+          data-src="{{item}}" 
+          data-array="{{filter.getgimgarrIP(xqData.task_pics)}}"
+          mode="aspectFill" bindtap='pveimg'></image>
 				<!-- <image  src="{{item}}" data-src="{{item}}"
 					 mode="aspectFill"></image> -->
 			</view>

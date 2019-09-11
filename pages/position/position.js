@@ -24,15 +24,19 @@ Page({
       this.setData({
         shownum: this.data.shownum
       })
-    }else{
-      // wx.navigateBack()
+    } else if(this.data.shownum == 2){
+      wx.navigateBack()
     }
   },
   //移动选点
   moveToLocation: function () {
     var that = this;
     wx.chooseLocation({
-      success: function (res) {    
+      success: function (res) {
+        that.data.shownum++
+        that.setData({
+          shownum: that.data.shownum
+        })    
         console.log(res.name);    
         //选择地点之后返回到原来页面
         // wx.navigateTo({

@@ -63,7 +63,7 @@
       <view class="rz_box">
         <view class="rz_name">擅长</view>
         <text class="mr20 fz28">:</text>
-        <input placeholder="请输入您的擅长" name="shanchang" value="{{items[index].name}}" disabled="" />
+        <input placeholder="请输入您的擅长" name="shanchang" value="{{items[index].name}}" disabled />
       </view>
     </picker>
     <view wx:if="{{member.RealName}}" class="rz_box">

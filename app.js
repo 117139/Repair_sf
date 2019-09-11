@@ -23,12 +23,12 @@ App({
     					console.log(that.globalData.userInfo)
     					wx.setStorageSync('userInfo', res.userInfo)
     					if(!that.globalData.userInfo){
-    						wx.reLaunch({
-    						  url: '/pages/login/login',
-    						  fail: (err) => {
-    						    console.log("失败: " + JSON.stringify(err));
-    						  }
-    						})
+    						// wx.reLaunch({
+    						//   url: '/pages/login/login',
+    						//   fail: (err) => {
+    						//     console.log("失败: " + JSON.stringify(err));
+    						//   }
+    						// })
     					}else{
     						that.dologin()
     					}
@@ -36,7 +36,6 @@ App({
     			})
     			
         }else{
-          wx.removeStorageSync('userInfo')
 				  // wx.reLaunch({
 				  //     url: '/pages/login/login',
 				  //     fail: (err) => {
@@ -87,12 +86,13 @@ App({
 	            // wx.setStorageSync('morenaddress', res.data.user_member_shopping_address)
 	            // wx.setStorageSync('appcode', rcode)
 							if(type=='shouquan'){
-								wx.reLaunch({
-								  url: '/pages/index/index',
-								  fail: (err) => {
-								    console.log("失败: " + JSON.stringify(err));
-								  }
-								})
+								// wx.reLaunch({
+								//   url: '/pages/index/index',
+								//   fail: (err) => {
+								//     console.log("失败: " + JSON.stringify(err));
+								//   }
+								// })
+                wx.navigateBack()
 							}
 							
 							
@@ -140,6 +140,19 @@ App({
 	},
   globalData: {
     userInfo: null
+  },
+  pveimg(current,urls) {
+    let urls1 = []
+    if (urls) {
+      urls1 = urls
+      
+    } else {
+      urls1[0] = current
+    }
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: urls1 // 需要预览的图片http链接列表
+    })
   },
 	data: {
 			haveLocation: false,
