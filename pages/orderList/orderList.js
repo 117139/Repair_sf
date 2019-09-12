@@ -149,6 +149,9 @@ Page({
       dataType: 'json',
       method: 'get',
       success(res) {
+        wx.setNavigationBarTitle({
+          title: '订单列表'
+        })
         // 停止下拉动作
         wx.stopPullDownRefresh();
         if (res.data.error == 0) {   //成功

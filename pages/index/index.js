@@ -17,7 +17,7 @@ Page({
    */
   onLoad: function (options) {
    
-    this.getOrderList('onLoad')
+    
   },
 
   /**
@@ -31,7 +31,20 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that =this
+    that.setData({
+      page: 1,
+      rw_data: []
+    })
+    if (!wx.getStorageSync('userInfo')) {
+      setTimeout(function () {
+        console.log('onshow')
+        that.getOrderList('onShow')
+      }, 1000)
+    }else{
+      that.getOrderList('onShow')
+    }
+    
   },
 
   /**
@@ -82,6 +95,30 @@ Page({
 		console.log(e.currentTarget.dataset.id)
     var id = e.currentTarget.dataset.id
     var that =this
+    if (!wx.getStorageSync('member').Phone) {
+      wx.showModal({
+        title: '提示',
+        content: '请先绑定用户信息',
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            wx.navigateTo({
+              url: "/pages/renzheng/renzheng"
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return
+    }
+    if (wx.getStorageSync('member').IdCard_Confirm !== 1){
+      wx.showToast({
+        icon:'none',
+        title:'您的身份认证还未通过审核无法接单'
+      })
+      return
+    }
     wx.request({
       url: app.IPurl,
       data: {
@@ -150,7 +187,7 @@ Page({
     if (!wx.getStorageSync('userInfo')) {
       htmlStatus1.dataNull()
       wx.setNavigationBarTitle({
-        title: '上门维修'
+        title: '首页'
       })
       return
     }
@@ -189,11 +226,11 @@ Page({
 
           } else {                           //数据不为空
             if (that.data.page == 1){
-              that.setData({
-                rw_data: []
-              })
+              that.data.rw_data = resultd
+            }else{
+              that.data.rw_data = that.data.rw_data.concat(resultd)
             }
-            that.data.rw_data = that.data.rw_data.concat(resultd)
+           
             that.data.page++
             that.setData({
               rw_data: that.data.rw_data,
@@ -232,7 +269,7 @@ Page({
       },
       complete() {
         wx.setNavigationBarTitle({
-          title: '上门维修'
+          title: '首页'
         })
       }
     })

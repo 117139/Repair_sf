@@ -369,8 +369,13 @@ Page({
           that.setData({
             imgb: newdata
           })
-          i++
-          that.upimg(imgs, i)
+          
+          var news1=that.data.imgb.length
+          if (news1<9){
+            i++
+            that.upimg(imgs, i)
+          }
+          
         } else {
           wx.showToast({
             icon: "none",

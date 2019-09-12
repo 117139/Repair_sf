@@ -12,8 +12,8 @@ App({
     // 获取用户信息
     wx.getSetting({
       success: res => {
-        console.log('16app'+JSON.stringify(res))
-        console.log(res.authSetting['scope.userInfo'])
+        // console.log('16app'+JSON.stringify(res))
+        // console.log(res.authSetting['scope.userInfo'])
         if (res.authSetting['scope.userInfo']==true) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           console.log('已经授权')
@@ -30,7 +30,53 @@ App({
     						//   }
     						// })
     					}else{
-    						that.dologin()
+    						// that.dologin()
+                wx.login({
+                  success: function (res) {
+                    // 发送 res.code 到后台换取 openId, sessionKey, unionId
+                    var uinfo = that.globalData.userInfo
+                    let data = {
+                      key: 'server_mima',
+                      code: res.code,
+                      apipage: 'login',
+                      nickname: uinfo.nickName,
+                      headpicurl: uinfo.avatarUrl,
+                      homeid: 1   //0用户端，1师傅端
+                    }
+                    let rcode = res.code
+                    console.log(res.code)
+                    wx.request({
+                      url: that.IPurl,
+                      data: data,
+                      header: {
+                        'content-type': 'application/x-www-form-urlencoded'
+                      },
+                      dataType: 'json',
+                      method: 'POST',
+                      success(res) {
+                        console.log(res.data)
+                        if (res.data.error == 0) {
+                          console.log('登录成功')
+                          wx.setStorageSync('tokenstr', res.data.tokenstr)
+                          wx.setStorageSync('member', res.data.member)
+                          wx.setStorageSync('zprice', res.data.price)
+                        } else {
+                          wx.showToast({
+                            icon: 'none',
+                            title: '登录失败',
+                          })
+                        }
+
+                      },
+                      fail() {
+                        wx.showToast({
+                          icon: 'none',
+                          title: '登录失败'
+                        })
+                      }
+                    })
+                  }
+                })
     					}
     				}
     			})

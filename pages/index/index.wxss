@@ -21,11 +21,11 @@
 	padding-left: 15rpx;
 	border-left: 8rpx solid #3ea5ff;
 	margin-top: 39rpx;
-	margin-bottom: 28px;
+	margin-bottom: 28rpx;
 }
 .rw_one{
 	width: 100%;
-	height: 256rpx;
+	/* height: 256rpx; */
 	padding: 20rpx 14rpx;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;

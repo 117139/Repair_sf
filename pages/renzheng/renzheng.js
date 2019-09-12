@@ -45,7 +45,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    var rzstatus = this.data.member.IdCard_Confirm
+    if (rzstatus==-1){
+      wx.showModal({
+        title: '身份认证',
+        content: '身份认证失败请重新认证',
+      })
+    }
   },
 
   /**
@@ -132,7 +138,7 @@ Page({
       url: app.IPurl,
       data: {
         'apipage': 'sendcode',
-        "op": "reg", 
+        // "op": "reg", 
         'tel': that.data.tel,
         "tokenstr": wx.getStorageSync('tokenstr').tokenstr
       },
@@ -156,6 +162,7 @@ Page({
           that.setData({
             yzm: res.data.code.substr(0, 4)
           })
+          console.log(res.data.code)
           that.codetime()
         } else {
           that.setData({

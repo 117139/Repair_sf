@@ -1,13 +1,14 @@
 <!--logs.wxml-->
 <import src="/utils/htmlStatus/index.wxml" />
 <wxs src="../../utils/filter.wxs" module="filter" />
-<view class="container">
 	<!-- <view class="hengxian"></view> -->
 	<view class='olist_tit'>
 		<block wx:for="{{datalist}}" wx:for-index="idx" wx:for-item="item" wx:key="idx">
 			<view class="{{type==idx?'fz28 typecur':'c9 fz28'}}" data-type="{{idx}}" bindtap='bindcur'>{{item}}</view>
 		</block>
 	</view>
+<view class="container">
+
 	
 	<view class="goodsBox w100" 
 		wx:if="{{type==idx0}}" 
