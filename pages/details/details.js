@@ -245,11 +245,42 @@ Page({
     // wx.navigateTo({
     //   url: '/pages/addLocation/addLocation',
     // });
-    wx.navigateTo({
-      url: "/pages/position/position"
+    this.moveToLocation()
+    // wx.navigateTo({
+    //   url: "/pages/position/position"
+    // });
+  },
+  //移动选点
+  moveToLocation: function () {
+    var that = this;
+    wx.chooseLocation({
+      success: function (res) {
+        console.log(res.name);
+        that.setData({
+          activity_location: res.name
+        })
+        //选择地点之后返回到原来页面
+        // wx.navigateTo({
+        //   url: "/pages/index/index?address="+res.name
+        // });
+        // var pages = getCurrentPages();   //当前页面
+        // var prevPage = pages[pages.length - 2];   //上一页面
+        // prevPage.setData({
+        //   //直接给上一个页面赋值
+        //   addresschose: res.name,
+        // });
+
+        // wx.navigateBack({
+        //   //返回
+        //   delta: 1
+        // })
+        // // wx.navigateBack()
+      },
+      fail: function (err) {
+        console.log(err)
+      }
     });
   },
-
 	imgdel(e){
 		var that =this
 		console.log(e.currentTarget.dataset.idx)

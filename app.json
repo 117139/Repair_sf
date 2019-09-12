@@ -17,6 +17,7 @@
   "window": {
     "enablePullDownRefresh": true,
     "backgroundTextStyle": "light",
+    "backgroundColor": "#f4f4f4",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "上门维修",
     "navigationBarTextStyle": "black"

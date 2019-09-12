@@ -90,6 +90,7 @@ Page({
   */
   onReachBottom: function () {
     this.getOrderList()
+    
   },
   jump(e) {
     app.jump(e)

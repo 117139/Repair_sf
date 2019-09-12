@@ -16,9 +16,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.setNavigationBarTitle({
-      title: '加载中...',
-    })
+   
     this.getOrderList('onLoad')
   },
 
@@ -156,6 +154,9 @@ Page({
       })
       return
     }
+    wx.setNavigationBarTitle({
+      title: '加载中...',
+    })
     wx.request({
       url: app.IPurl,
       data: {
@@ -187,6 +188,11 @@ Page({
             }
 
           } else {                           //数据不为空
+            if (that.data.page == 1){
+              that.setData({
+                rw_data: []
+              })
+            }
             that.data.rw_data = that.data.rw_data.concat(resultd)
             that.data.page++
             that.setData({
