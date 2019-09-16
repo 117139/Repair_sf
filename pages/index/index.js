@@ -185,6 +185,8 @@ Page({
     const htmlStatus1 = htmlStatus.default(that)
     console.log('获取列表')
     if (!wx.getStorageSync('userInfo')) {
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
       htmlStatus1.dataNull()
       wx.setNavigationBarTitle({
         title: '首页'
