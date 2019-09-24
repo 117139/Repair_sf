@@ -193,6 +193,15 @@ Page({
       })
       return
     }
+    if (!wx.getStorageSync('tokenstr')) {
+      // 停止下拉动作
+      wx.stopPullDownRefresh();
+      htmlStatus1.dataNull()
+      wx.setNavigationBarTitle({
+        title: '首页'
+      })
+      return
+    }
     wx.setNavigationBarTitle({
       title: '加载中...',
     })

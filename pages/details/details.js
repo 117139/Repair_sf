@@ -49,7 +49,7 @@ Page({
       // 调用接口
       qqmapsdk.reverseGeocoder({
         success: function (res) {
-          // console.log(res.result.address);
+           console.log(res.result.address);
           that.setData({
             // address: res.result.address,
             activity_location: res.result.address
@@ -80,7 +80,7 @@ Page({
    */
   onShow: function () {
 		var that = this;
-    console.log(getApp().data.activity_location);//从position跳转过来，可以
+    // console.log(getApp().data.activity_location);//从position跳转过来，可以
     // console.log(this.data.address);
     location = getApp().data.activity_location;
     if (location != "") {
@@ -164,7 +164,30 @@ Page({
       that.setData({
         ldata: true,
       })
-      that.getLocation(that);
+      // 调用接口
+      // 实例化API核心类
+      qqmapsdk = new QQMapWX({
+        //此key需要用户自己申请
+        key: 'FORBZ-KIPEF-WECJR-NFZKA-MREDV-FCF3O'
+      });
+      qqmapsdk.reverseGeocoder({
+        success: function (res) {
+          console.log(res.result.address);
+          that.setData({
+            // address: res.result.address,
+            activity_location: res.result.address
+          });
+          // console.log(that.data.address);
+        },
+        fail: function (res) {
+          //console.log(res);
+
+        },
+        complete: function (res) {
+          //console.log(res);
+        }
+      });
+      // that.getLocation(that);
       /*wx.getLocation({
         type: 'gcj02',
         success: function (res) {
@@ -187,7 +210,7 @@ Page({
   
   //判断获取地址授权
   again_getLocation: function () {
-    let that = this;
+    var that = this;
     // 获取位置信息
     wx.getSetting({
       success: (res) => {
@@ -217,8 +240,31 @@ Page({
                         icon: 'success',
                         duration: 1000
                       })
+                      // 调用接口
+                      // 实例化API核心类
+                      qqmapsdk = new QQMapWX({
+                        //此key需要用户自己申请
+                        key: 'FORBZ-KIPEF-WECJR-NFZKA-MREDV-FCF3O'
+                      });
+                      qqmapsdk.reverseGeocoder({
+                        success: function (res) {
+                          console.log(res.result.address);
+                          that.setData({
+                            // address: res.result.address,
+                            activity_location: res.result.address
+                          });
+                          // console.log(that.data.address);
+                        },
+                        fail: function (res) {
+                          //console.log(res);
+
+                        },
+                        complete: function (res) {
+                          //console.log(res);
+                        }
+                      });
                       //再次授权，调用getLocationt的API
-                      that.getLocation(that);
+                      //that.getLocation(that);
                     } else {
                       wx.showToast({
                         title: '授权失败',
@@ -232,10 +278,56 @@ Page({
             }
           })
         } else if (res.authSetting['scope.userLocation'] == undefined) {//初始化进入
-          that.getLocation(that);
+          
+          // 实例化API核心类
+          qqmapsdk = new QQMapWX({
+            //此key需要用户自己申请
+            key: 'FORBZ-KIPEF-WECJR-NFZKA-MREDV-FCF3O'
+          });
+          // 调用接口
+          qqmapsdk.reverseGeocoder({
+            success: function (res) {
+              console.log(res.result.address);
+              that.setData({
+                // address: res.result.address,
+                activity_location: res.result.address
+              });
+              // console.log(that.data.address);
+            },
+            fail: function (res) {
+              //console.log(res);
+
+            },
+            complete: function (res) {
+              //console.log(res);
+            }
+          });
+          // that.getLocation(that);
         }
         else { //授权后默认加载
-          that.getLocation(that);
+        console.log(1)
+          // 调用接口
+          qqmapsdk = new QQMapWX({
+            key: 'FORBZ-KIPEF-WECJR-NFZKA-MREDV-FCF3O'
+          });
+          qqmapsdk.reverseGeocoder({
+            success: function (res) {
+              console.log(res.result.address);
+              that.setData({
+                // address: res.result.address,
+                activity_location: res.result.address
+              });
+              // console.log(that.data.address);
+            },
+            fail: function (res) {
+              console.log(res);
+
+            },
+            complete: function (res) {
+              //console.log(res);
+            }
+          });
+          // that.getLocation(that);
         }
       }
     })
@@ -307,7 +399,7 @@ Page({
     wx.chooseImage({
       count: 9,
       sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
+      sourceType: ['camera'],
       success(res) {
         // tempFilePath可以作为img标签的src属性显示图片
         console.log(res)
@@ -794,6 +886,9 @@ Page({
       }
     })
     
+  },
+  jump(e){
+    app.jump(e)
   },
   pveimg(e){
     var curr = e.currentTarget.dataset.src

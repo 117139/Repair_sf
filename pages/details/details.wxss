@@ -121,7 +121,7 @@
 	align-items: center;
 	font-size: 28rpx;
 	color: #666666;
-	margin-bottom: 2rpx;
+	margin-bottom: 1px;
 	background-color: #fff;
 }
 .order_msg{
@@ -229,4 +229,12 @@
 	min-width: 0;
 	flex: 1;
 	font-size: 26rpx;
+}
+.tosmg{
+  justify-content: space-between;
+}
+.tosmg .iconnext {
+  font-size:24rpx;
+  color:#bbb;
+
 }
