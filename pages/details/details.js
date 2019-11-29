@@ -19,12 +19,14 @@ Page({
 		imgb:[],
     pjpri:0,
     wxpri:0,
+    ewm_sf:'', //支付二维码
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getewm()
    if(options.id){
      this.setData({
        o_id: options.id
@@ -153,6 +155,56 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getewm(){
+    var datas = {
+      apipage: "imagelist",
+      type: 5
+    };
+    let that = this
+    wx.request({
+      url: app.IPurl,
+      data: datas,
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      dataType: 'json',
+      method: 'get',
+      success(res) {
+        // 停止下拉动作
+        wx.stopPullDownRefresh();
+        // if (res.data.error == 0) {   //成功
+          console.log(res.data)
+          that.setData({
+            ewm_sf: app.IPurl1+res.data.datalist[0].Image1,
+          })
+
+
+        // } else {  //失败
+        //   if (res.data.returnstr) {
+        //     wx.showToast({
+        //       icon: 'none',
+        //       title: res.data.returnstr
+        //     })
+        //   } else {
+        //     wx.showToast({
+        //       icon: 'none',
+        //       title: '加载失败'
+        //     })
+        //   }
+        // }
+
+        // htmlStatus1.error()    // 切换为error状态
+      },
+      fail(err) {
+        wx.showToast({
+          icon: "none",
+          title: "加载失败"
+        })
+
+        console.log(err)
+      }
+    })
   },
   handler: function (e) {
     var that = this;

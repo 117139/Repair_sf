@@ -96,6 +96,10 @@
 	</view>
    <block wx:else>
     <view class="o_tit">交易信息</view>
+      <view class="ewm_sf">
+        <image src="{{ewm_sf}}"></image>
+        <view>收款二维码</view>
+      </view>
       <block wx:if="{{xqData.status==1}}">
         <view class="rz_box">
           <view class="rz_name">配件</view>

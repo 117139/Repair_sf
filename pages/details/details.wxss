@@ -238,3 +238,20 @@
   color:#bbb;
 
 }
+.ewm_sf{
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  color: #999;
+  font-size: 26rpx;
+}
+.ewm_sf image{
+  width: 300rpx;
+  height: 300rpx;
+  margin-bottom: 10rpx;
+}
